@@ -30,7 +30,7 @@
     self.views = [[NSMutableArray alloc] init];
     self.lastBrightness = -1;
 
-    NSArray *contribuintes = @[@244413690, @13379548, @123456789];
+    NSArray *contribuintes = @[@244413690, @13379548, @999999999, @123456789];
 
     [self loadViewContribuintes:contribuintes];
 }
@@ -46,9 +46,6 @@
     if (!thisView) {
         thisView = [self.views objectAtIndex:index];
 
-        // Color
-        //thisView.backgroundColor = [UIColor lightGrayColor];
-
         thisView.layer.cornerRadius = 5;
         thisView.layer.masksToBounds = YES;
     }
@@ -60,20 +57,42 @@
     return [self.views count];
 }
 
-- (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index
+- (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index withView:(UIView*)page
 {
-    // ToDo! - Wrong selected view
-    //ViewContribuinte *currentView = (ViewContribuinte*)[self.views objectAtIndex:index];
+    [page setBackgroundColor:[UIColor blueColor]];
 
-    // Brightness
-    if (self.lastBrightness == -1) {
-        self.lastBrightness = [UIScreen mainScreen].brightness;
-        [[UIScreen mainScreen] setBrightness:1.0];
-    }
-    else {
-        [[UIScreen mainScreen] setBrightness:self.lastBrightness];
-        self.lastBrightness = -1;
-    }
+    ViewContribuinte* currentPage = (ViewContribuinte*)page;
+
+    currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1, 1);
+    [UIView animateWithDuration:1.0 animations:^{
+        currentPage.labelContribuinte.transform = CGAffineTransformMakeRotation(M_PI / 2);
+        currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1.6, 1.6);
+    }];
+
+    // Set Brightness
+    self.lastBrightness = [UIScreen mainScreen].brightness;
+    [[UIScreen mainScreen] setBrightness:1.0];
+}
+
+- (void)stackView:(SSStackedPageView *)stackView deselectedPageAtIndex:(NSInteger) index withView:(UIView*)page
+{
+    // Already closed
+    if (self.lastBrightness == -1)
+        return;
+
+    [page setBackgroundColor:[UIColor whiteColor]];
+
+    ViewContribuinte* currentPage = (ViewContribuinte*)page;
+
+    currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1, 1);
+    [UIView animateWithDuration:1.0 animations:^{
+        currentPage.labelContribuinte.transform = CGAffineTransformMakeRotation(2*M_PI);
+        currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 0.8, 0.8);
+    }];
+
+    // Unset Brightness
+    [[UIScreen mainScreen] setBrightness:self.lastBrightness];
+    self.lastBrightness = -1;
 }
 
 - (void)loadViewContribuintes:(NSArray*)list

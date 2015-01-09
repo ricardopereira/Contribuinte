@@ -21,12 +21,12 @@
     if (self.imageCode.hidden) {
         self.imageCode.hidden = false;
         self.labelContribuinte.hidden = true;
-        self.buttonBarCode.titleLabel.text = @"Número";
+        [self.buttonBarCode setTitle:@"Número" forState:UIControlStateNormal];
     }
     else {
         self.imageCode.hidden = true;
         self.labelContribuinte.hidden = false;
-        //self.buttonBarCode.titleLabel.text = @"Código de Barras";
+        [self.buttonBarCode setTitle:@"Código de Barras" forState:UIControlStateNormal];
     }
 }
 
@@ -35,7 +35,6 @@
     self.imageCode.image = [self generateCodeBarEAN13:number];
     self.imageCode.center = view.center;
 
-    self.labelContribuinte.transform = CGAffineTransformMakeRotation(M_PI / 2);
     self.labelContribuinte.text = [self formatContribuinte:number];
     [self.labelContribuinte sizeToFit];
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
@@ -57,14 +56,14 @@
     if ([number12 isEqualToString:@""])
         return nil;
 
-    int remaining = 12 - number12.length;
+    NSInteger remaining = 12 - number12.length;
 
     if (remaining > 0) {
         for (int i=0; i<remaining; i++)
             number12 = [NSString stringWithFormat:@"%@%@",@"0",number12];
     }
 
-    int checksumDigit = [self generateEAN13ChecksumDigit:number12];
+    NSInteger checksumDigit = [self generateEAN13ChecksumDigit:number12];
     // Error?
     if (checksumDigit == -1)
         return nil;

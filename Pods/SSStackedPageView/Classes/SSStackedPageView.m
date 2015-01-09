@@ -101,8 +101,6 @@
     self.theScrollView.delegate = self;
     self.theScrollView.backgroundColor = [UIColor clearColor];
     self.theScrollView.showsVerticalScrollIndicator = NO;
-    
-
 }
 
 #pragma mark - Page Selection
@@ -300,28 +298,41 @@
     }
 }
 
-#pragma mark - gesture recognizer
+
+#pragma mark - Gesture Recognizer
+
 - (void)tapped:(UIGestureRecognizer*)sender
 {
-    
     UIView *page = [sender view];
     NSInteger index = [self.pages indexOfObject:page];
     CGRect pageTouchFrame = page.frame;
+
+    if (self.pages.count == 1) {
+        // Do nothing...
+        return;
+    }
+
     if (self.selectedPageIndex == index) {
-        pageTouchFrame.size.height = CGRectGetHeight(pageTouchFrame)-COLLAPSED_OFFSET;
+        pageTouchFrame.size.height = CGRectGetHeight(pageTouchFrame) - COLLAPSED_OFFSET;
+        [self.delegate stackView:self deselectedPageAtIndex:index withView:page];
     } else if (self.selectedPageIndex != -1) {
         pageTouchFrame.size.height = COLLAPSED_OFFSET;
-    } else if ( index+1 < [self.pages count] ) {
+        [self.delegate stackView:self selectedPageAtIndex:index withView:page];
+    } else if (index+1 < self.pages.count ) {
         pageTouchFrame.size.height = PAGE_PEAK;
+        [self.delegate stackView:self selectedPageAtIndex:index withView:page];
     }
+    else
+        [self.delegate stackView:self selectedPageAtIndex:index withView:page];
+
     [self selectPageAtIndex:index];
-    [self.delegate stackView:self selectedPageAtIndex:index];
 }
 
 - (void)panned:(UIPanGestureRecognizer*)recognizer
 {
     UIView *page = [recognizer view];
     CGPoint translation = [recognizer translationInView:page];
+
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         self.trackedTranslation = 0;
     } else if (recognizer.state ==UIGestureRecognizerStateChanged) {
@@ -333,18 +344,21 @@
         
         [recognizer setTranslation:CGPointMake(0, 0) inView:page];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        NSInteger pageIndex = [self.pages indexOfObject:page];
         if (self.trackedTranslation < -PAGE_PEAK) {
-            NSInteger pageIndex = [self.pages indexOfObject:page];
             [self selectPageAtIndex:pageIndex];
-            [self.delegate stackView:self selectedPageAtIndex:pageIndex];
+            [self.delegate stackView:self selectedPageAtIndex:pageIndex withView:page];
         } else {
+            [self.delegate stackView:self deselectedPageAtIndex:pageIndex withView:page];
             self.selectedPageIndex = -1;
             [self resetPages];
         }
     }
 }
 
+
 #pragma mark - ScrollView Delegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self setPageAtOffset:scrollView.contentOffset];

@@ -31,6 +31,9 @@
 - (NSInteger)numberOfPagesForStackView:(SSStackedPageView *)stackView;
 
 ///handler for when a page is selected
-- (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index;
+- (void)stackView:(SSStackedPageView*)stackView selectedPageAtIndex:(NSInteger)index withView:(UIView*)page;
+
+///hanlder for when page is deselected
+- (void)stackView:(SSStackedPageView*)stackView deselectedPageAtIndex:(NSInteger)index withView:(UIView*)page;
 
 @end
