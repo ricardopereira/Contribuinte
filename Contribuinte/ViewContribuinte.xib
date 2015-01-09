@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
@@ -10,38 +10,38 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiF-ve-FSS">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wiF-ve-FSS">
                     <rect key="frame" x="42" y="177" width="237" height="86"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32j-7N-JaD">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="32j-7N-JaD">
                     <rect key="frame" x="8" y="8" width="304" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="54l-ew-hvY"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999 999 999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87A-ym-xed">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999 999 999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="87A-ym-xed">
                     <rect key="frame" x="8" y="262" width="304" height="43"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="43" id="ph7-YE-Hpb"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uMM-Kz-du4">
+                    <rect key="frame" x="87" y="313" width="146" height="47"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Código de Barras">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didTouchButtonCode:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ws5-Ob-pe5"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="87A-ym-xed" secondAttribute="trailing" constant="8" id="D1W-Ks-9v5"/>
-                <constraint firstAttribute="trailing" secondItem="32j-7N-JaD" secondAttribute="trailing" constant="8" id="KSY-HS-o7c"/>
-                <constraint firstAttribute="centerY" secondItem="87A-ym-xed" secondAttribute="centerY" id="M5L-CJ-A40"/>
-                <constraint firstItem="32j-7N-JaD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="bRJ-aO-Ku6"/>
-                <constraint firstItem="87A-ym-xed" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="oni-Zk-YYl"/>
-                <constraint firstItem="32j-7N-JaD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="whZ-PN-U8v"/>
-            </constraints>
             <connections>
+                <outlet property="buttonBarCode" destination="uMM-Kz-du4" id="afd-dJ-tso"/>
                 <outlet property="imageCode" destination="wiF-ve-FSS" id="31y-nV-5LL"/>
                 <outlet property="labelContribuinte" destination="87A-ym-xed" id="iHA-jm-kte"/>
             </connections>

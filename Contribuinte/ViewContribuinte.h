@@ -12,5 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelContribuinte;
 @property (weak, nonatomic) IBOutlet UIImageView *imageCode;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBarCode;
+
+- (void)initLayout:(NSInteger)number withRoot:(UIView*)view;
 
 @end
