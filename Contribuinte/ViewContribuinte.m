@@ -24,11 +24,7 @@
     self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
     [self.labelContribuinte sizeToFit];
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
-
-    if (FEATURE_STATUSBAR)
-        self.labelContribuinte.center = CGPointMake(view.center.x, view.center.y);
-    else
-        self.labelContribuinte.center = CGPointMake(view.center.x, view.center.y-45);
+    self.labelContribuinte.center = view.center;
 
     self.buttonBarCode.center = CGPointMake(view.center.x, view.frame.size.height-self.buttonBarCode.frame.size.height-10);
 }

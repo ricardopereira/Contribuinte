@@ -42,14 +42,7 @@
     }
 
     // Config
-    RLMResults *contribuintes = [Contribuinte allObjects];
-
-    if (contribuintes.count == 0) {
-        self.buttonAdd.hidden = false;
-        self.stackView.hidden = true;
-    }
-
-    [self loadViewContribuintes:contribuintes];
+    [self loadContribuintes];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -81,6 +74,9 @@
     return !FEATURE_STATUSBAR;
 }
 
+
+#pragma mark - StackedPage delegate
+
 - (UIView *)stackView:(SSStackedPageView *)stackView pageForIndex:(NSInteger)index
 {
     UIView *thisView = [stackView dequeueReusablePage];
@@ -96,6 +92,22 @@
 - (NSInteger)numberOfPagesForStackView:(SSStackedPageView *)stackView
 {
     return [self.views count];
+}
+
+
+#pragma mark - Model
+
+- (void)loadContribuintes
+{
+    RLMResults *contribuintes = [Contribuinte allObjects];
+
+    self.buttonAdd.hidden = contribuintes.count != 0;
+    self.stackView.hidden = contribuintes.count == 0;
+
+    [self loadViewContribuintes:contribuintes];
+    [self.stackView resetPages];
+    [self.stackView setNeedsDisplay];
+    [self.stackView setNeedsLayout];
 }
 
 - (void)loadViewContribuintes:(RLMResults*)list
@@ -178,6 +190,9 @@
 
 - (void)unsetFullBrightness:(BOOL)keepLastBrightness
 {
+    if (self.lastBrightness == -1)
+        return;
+
     if (FEATURE_BRIGHTNESS)
         [[UIScreen mainScreen] setBrightness:self.lastBrightness];
     if (!keepLastBrightness)
@@ -185,7 +200,7 @@
 }
 
 
-#pragma mark "Notification handlers"
+#pragma mark - Notification handlers
 
 - (void)orientationChanged:(NSNotification *)notification
 {
@@ -213,7 +228,7 @@
 }
 
 
-#pragma mark "Stacked Delegate"
+#pragma mark - Stacked Delegate
 
 - (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index withView:(UIView*)page
 {
@@ -230,7 +245,7 @@
 }
 
 
-#pragma mark "IBActions"
+#pragma mark - IBActions
 
 - (IBAction)didTouchButtonAdd:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" preferredStyle:UIAlertControllerStyleAlert];
@@ -255,6 +270,7 @@
         else {
             // Add to array
         }
+        [self loadContribuintes];
     }];
     actionAdd.enabled = false;
 

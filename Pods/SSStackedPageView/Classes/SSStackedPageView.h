@@ -19,6 +19,7 @@
 
 ///dequeue the last page in the reusable queue
 - (UIView*)dequeueReusablePage;
+- (void)resetPages;
 
 @end
 

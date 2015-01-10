@@ -87,7 +87,9 @@
     [self reloadVisiblePages];
 }
 
-#pragma mark - setup methods
+
+#pragma mark - Setup methods
+
 - (void)setup
 {
     self.pageCount = 0;
@@ -103,7 +105,9 @@
     self.theScrollView.showsVerticalScrollIndicator = NO;
 }
 
-#pragma mark - Page Selection
+
+#pragma mark - Page selection
+
 - (void)selectPageAtIndex:(NSInteger)index
 {
     if (index != self.selectedPageIndex) {
@@ -170,7 +174,9 @@
     [UIView commitAnimations];
 }
 
-#pragma mark - displaying pages
+
+#pragma mark - Displaying pages
+
 - (void)reloadVisiblePages
 {
     NSInteger start = self.visiblePages.location;
@@ -271,7 +277,9 @@
     }
 }
 
-#pragma mark - reuse methods
+
+#pragma mark - Reuse methods
+
 - (void)enqueueReusablePage:(UIView*)page
 {
     [self.reusablePages addObject:page];
@@ -332,6 +340,11 @@
 {
     UIView *page = [recognizer view];
     CGPoint translation = [recognizer translationInView:page];
+
+    if (self.pages.count == 1) {
+        // Do nothing...
+        return;
+    }
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         self.trackedTranslation = 0;
