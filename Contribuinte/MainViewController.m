@@ -31,15 +31,17 @@
 
     // Config
     self.stackView.delegate = self;
-    self.stackView.pagesHaveShadows = YES;
+    self.stackView.pagesHaveShadows = true;
+    
     self.views = [[NSMutableArray alloc] init];
     self.lastBrightness = -1;
 
-    // Teste - Remove default Realm
-    if (FEATURE_REALM && FEATURE_DEBUG) {
+    if (FEATURE_REALM && FEATURE_REALM_REINIT) {
+        // Remove persistent data
         [[NSFileManager defaultManager] removeItemAtPath:[RLMRealm defaultRealmPath] error:nil];
     }
 
+    // Config
     RLMResults *contribuintes = [Contribuinte allObjects];
 
     if (contribuintes.count == 0) {
@@ -50,9 +52,33 @@
     [self loadViewContribuintes:contribuintes];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (FEATURE_ORIENTATION)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+    if (FEATURE_ORIENTATION)
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    if (self.lastBrightness != -1)
+        [self unsetFullBrightness];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return !FEATURE_STATUSBAR;
 }
 
 - (UIView *)stackView:(SSStackedPageView *)stackView pageForIndex:(NSInteger)index
@@ -62,7 +88,7 @@
         thisView = [self.views objectAtIndex:index];
 
         thisView.layer.cornerRadius = 5;
-        thisView.layer.masksToBounds = YES;
+        thisView.layer.masksToBounds = true;
     }
     return thisView;
 }
@@ -72,44 +98,6 @@
     return [self.views count];
 }
 
-- (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index withView:(UIView*)page
-{
-    [page setBackgroundColor:[UIColor blueColor]];
-
-    ViewContribuinte* currentPage = (ViewContribuinte*)page;
-
-    currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1, 1);
-    [UIView animateWithDuration:1.0 animations:^{
-        currentPage.labelContribuinte.transform = CGAffineTransformMakeRotation(M_PI / 2);
-        currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1.6, 1.6);
-    }];
-
-    // Set Brightness
-    self.lastBrightness = [UIScreen mainScreen].brightness;
-    [[UIScreen mainScreen] setBrightness:1.0];
-}
-
-- (void)stackView:(SSStackedPageView *)stackView deselectedPageAtIndex:(NSInteger) index withView:(UIView*)page
-{
-    // Already closed
-    if (self.lastBrightness == -1)
-        return;
-
-    [page setBackgroundColor:[UIColor whiteColor]];
-
-    ViewContribuinte* currentPage = (ViewContribuinte*)page;
-
-    currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1, 1);
-    [UIView animateWithDuration:1.0 animations:^{
-        currentPage.labelContribuinte.transform = CGAffineTransformMakeRotation(2*M_PI);
-        currentPage.labelContribuinte.transform = CGAffineTransformScale(currentPage.labelContribuinte.transform, 1, 1);
-    }];
-
-    // Unset Brightness
-    [[UIScreen mainScreen] setBrightness:self.lastBrightness];
-    self.lastBrightness = -1;
-}
-
 - (void)loadViewContribuintes:(RLMResults*)list
 {
     for (Contribuinte *item in list) {
@@ -117,10 +105,132 @@
         ViewContribuinte *thisView = [[[NSBundle mainBundle] loadNibNamed:@"ViewContribuinte" owner:self options:nil] objectAtIndex:0];
 
         [thisView initLayout:item withRoot:self.view];
-        
+
         [self.views addObject:thisView];
     }
 }
+
+- (void)portraitMode:(ViewContribuinte*)page
+{
+    // Already deselected
+    if (self.lastBrightness == -1)
+        return;
+
+    if (FEATURE_COLORSELECTED)
+        [page setBackgroundColor:[UIColor whiteColor]];
+
+    page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1, 1);
+    [UIView animateWithDuration:0.2 animations:^{
+        page.labelContribuinte.transform = CGAffineTransformMakeRotation(2*M_PI);
+        page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1, 1);
+    }];
+
+    // Unset Brightness
+    [self unsetFullBrightness];
+}
+
+- (void)landscapeMode:(ViewContribuinte*)page
+{
+    [self landscapeMode:page rotateLeft:true];
+}
+
+- (void)landscapeMode:(ViewContribuinte*)page rotateLeft:(BOOL)left
+{
+    // Already selected
+    if (self.lastBrightness != -1)
+        return;
+
+    if (FEATURE_COLORSELECTED)
+        [page setBackgroundColor:[UIColor blueColor]];
+
+    void (^blockAnimation)(void);
+
+    page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1, 1);
+    if (left) {
+        blockAnimation = ^{
+            page.labelContribuinte.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+            page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
+        };
+    }
+    else {
+        blockAnimation = ^{
+            page.labelContribuinte.transform = CGAffineTransformMakeRotation(M_PI / 2);
+            page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
+        };
+    }
+    [UIView animateWithDuration:0.3 animations:blockAnimation];
+
+    // Set Brightness
+    [self setFullBrightness];
+}
+
+- (void)setFullBrightness
+{
+    self.lastBrightness = [UIScreen mainScreen].brightness;
+    if (FEATURE_BRIGHTNESS)
+        [[UIScreen mainScreen] setBrightness:1.0];
+}
+
+- (void)unsetFullBrightness
+{
+    [self unsetFullBrightness:false];
+}
+
+- (void)unsetFullBrightness:(BOOL)keepLastBrightness
+{
+    if (FEATURE_BRIGHTNESS)
+        [[UIScreen mainScreen] setBrightness:self.lastBrightness];
+    if (!keepLastBrightness)
+        self.lastBrightness = -1;
+}
+
+
+#pragma mark "Notification handlers"
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    switch ([UIDevice currentDevice].orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            if (self.views.count == 1) {
+                [self portraitMode:self.views.firstObject];
+            }
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            if (self.views.count == 1) {
+                [self landscapeMode:self.views.firstObject rotateLeft:true];
+            }
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            if (self.views.count == 1) {
+                [self landscapeMode:self.views.firstObject rotateLeft:false];
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+#pragma mark "Stacked Delegate"
+
+- (void)stackView:(SSStackedPageView *)stackView selectedPageAtIndex:(NSInteger) index withView:(UIView*)page
+{
+    ViewContribuinte* currentPage = (ViewContribuinte*)page;
+
+    [self landscapeMode:currentPage];
+}
+
+- (void)stackView:(SSStackedPageView *)stackView deselectedPageAtIndex:(NSInteger) index withView:(UIView*)page
+{
+    ViewContribuinte* currentPage = (ViewContribuinte*)page;
+
+    [self portraitMode:currentPage];
+}
+
+
+#pragma mark "IBActions"
 
 - (IBAction)didTouchButtonAdd:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" preferredStyle:UIAlertControllerStyleAlert];
@@ -135,7 +245,16 @@
         contribuinte.description = fieldDescription.text;
         contribuinte.number = fieldNumber.text.integerValue;
 
-        //RLMRealm *realm = [RLMRealm defaultRealm];
+        if (FEATURE_REALM) {
+            RLMRealm *realm = [RLMRealm defaultRealm];
+            // Save object
+            [realm beginWriteTransaction];
+            [realm addObject:contribuinte];
+            [realm commitWriteTransaction];
+        }
+        else {
+            // Add to array
+        }
     }];
     actionAdd.enabled = false;
 

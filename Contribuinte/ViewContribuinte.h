@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Features.h"
 #import "Contribuinte.h"
 
 @interface ViewContribuinte : UIView

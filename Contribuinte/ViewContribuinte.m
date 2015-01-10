@@ -17,7 +17,24 @@
 
 @implementation ViewContribuinte
 
-- (IBAction)didTouchButtonCode:(id)sender {
+- (void)initLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
+{
+    self.labelDescription.text = contribuinte.description;
+
+    self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
+    [self.labelContribuinte sizeToFit];
+    self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
+
+    if (FEATURE_STATUSBAR)
+        self.labelContribuinte.center = CGPointMake(view.center.x, view.center.y);
+    else
+        self.labelContribuinte.center = CGPointMake(view.center.x, view.center.y-45);
+
+    self.buttonBarCode.center = CGPointMake(view.center.x, view.frame.size.height-self.buttonBarCode.frame.size.height-10);
+}
+
+- (IBAction)didTouchButtonCode:(id)sender
+{
     if (self.imageCode.hidden) {
         self.imageCode.hidden = false;
         self.labelContribuinte.hidden = true;
@@ -28,21 +45,6 @@
         self.labelContribuinte.hidden = false;
         [self.buttonBarCode setTitle:@"Código de Barras" forState:UIControlStateNormal];
     }
-}
-
-- (void)initLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view {
-    self.imageCode.transform = CGAffineTransformMakeRotation(M_PI / 2);
-    self.imageCode.image = [self generateCodeBarEAN13:contribuinte.number];
-    self.imageCode.center = view.center;
-
-    self.labelDescription.text = contribuinte.description;
-
-    self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
-    [self.labelContribuinte sizeToFit];
-    self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
-    self.labelContribuinte.center = view.center;
-
-    self.buttonBarCode.center = CGPointMake(view.center.x, view.frame.size.height-self.buttonBarCode.frame.size.height-10);
 }
 
 - (UIImage*)generateCodeBarEAN13:(NSInteger)number
