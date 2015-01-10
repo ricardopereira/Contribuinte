@@ -32,9 +32,13 @@
     // Config
     self.stackView.delegate = self;
     self.stackView.pagesHaveShadows = true;
-    
+
     self.views = [[NSMutableArray alloc] init];
     self.lastBrightness = -1;
+
+    [self.buttonAdd setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.stackView setBackgroundColor:[UIColor colorWithRed:0 green:0.42 blue:0.68 alpha:1]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:0 green:0.42 blue:0.68 alpha:1]];
 
     if (FEATURE_REALM && FEATURE_REALM_REINIT) {
         // Remove persistent data
@@ -116,7 +120,7 @@
         // Create view
         ViewContribuinte *thisView = [[[NSBundle mainBundle] loadNibNamed:@"ViewContribuinte" owner:self options:nil] objectAtIndex:0];
 
-        [thisView initLayout:item withRoot:self.view];
+        [thisView setupLayout:item withRoot:self.view];
 
         [self.views addObject:thisView];
     }
@@ -282,7 +286,8 @@
 
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             // Check if is empty
-            actionAdd.enabled = ![textField.text isEqualToString:@""];
+            if ([textField.text isEqualToString:@""])
+                actionAdd.enabled = false;
         }];
     }];
 

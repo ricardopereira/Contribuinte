@@ -15,7 +15,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="32j-7N-JaD">
-                    <rect key="frame" x="8" y="8" width="304" height="35"/>
+                    <rect key="frame" x="14" y="8" width="298" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,10 +38,33 @@
                         <action selector="didTouchButtonCode:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ws5-Ob-pe5"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnY-6K-fUd">
+                    <rect key="frame" x="14" y="37" width="58" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="Remover">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didTouchButtonRemove:" destination="iN0-l3-epB" eventType="touchUpInside" id="zi0-GX-owu"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k8K-n8-qT8">
+                    <rect key="frame" x="14" y="520" width="298" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Adicionar novo contribuinte">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didTouchButtonAdd:" destination="iN0-l3-epB" eventType="touchUpInside" id="sCR-Iz-YH5"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="buttonAdd" destination="k8K-n8-qT8" id="79w-ii-8Nw"/>
                 <outlet property="buttonBarCode" destination="uMM-Kz-du4" id="afd-dJ-tso"/>
+                <outlet property="buttonRemove" destination="lnY-6K-fUd" id="c7y-vP-2AE"/>
                 <outlet property="imageCode" destination="wiF-ve-FSS" id="31y-nV-5LL"/>
                 <outlet property="labelContribuinte" destination="87A-ym-xed" id="iHA-jm-kte"/>
                 <outlet property="labelDescription" destination="32j-7N-JaD" id="4kc-jI-JbI"/>

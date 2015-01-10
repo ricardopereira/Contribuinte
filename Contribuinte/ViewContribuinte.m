@@ -17,7 +17,7 @@
 
 @implementation ViewContribuinte
 
-- (void)initLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
+- (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
 {
     self.labelDescription.text = contribuinte.description;
 
@@ -25,6 +25,8 @@
     [self.labelContribuinte sizeToFit];
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
     self.labelContribuinte.center = view.center;
+
+    self.buttonAdd.center = CGPointMake(view.center.x, view.frame.size.height-25);
 
     self.buttonBarCode.center = CGPointMake(view.center.x, view.frame.size.height-self.buttonBarCode.frame.size.height-10);
 }
@@ -127,6 +129,17 @@
         }
     }
     return formatted;
+}
+
+
+#pragma mark - IBActions
+
+- (IBAction)didTouchButtonAdd:(id)sender {
+
+}
+
+- (IBAction)didTouchButtonRemove:(id)sender {
+
 }
 
 @end
