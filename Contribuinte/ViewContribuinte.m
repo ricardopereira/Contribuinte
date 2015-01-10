@@ -30,12 +30,14 @@
     }
 }
 
-- (void)initLayout:(NSInteger)number withRoot:(UIView*)view {
+- (void)initLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view {
     self.imageCode.transform = CGAffineTransformMakeRotation(M_PI / 2);
-    self.imageCode.image = [self generateCodeBarEAN13:number];
+    self.imageCode.image = [self generateCodeBarEAN13:contribuinte.number];
     self.imageCode.center = view.center;
 
-    self.labelContribuinte.text = [self formatContribuinte:number];
+    self.labelDescription.text = contribuinte.description;
+
+    self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
     [self.labelContribuinte sizeToFit];
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
     self.labelContribuinte.center = view.center;
@@ -45,7 +47,7 @@
 
 - (UIImage*)generateCodeBarEAN13:(NSInteger)number
 {
-    NSString *number12 = [NSString stringWithFormat:@"%d",number];
+    NSString *number12 = [NSString stringWithFormat:@"%ld",(long)number];
 
     if (number12.length > 12)
         return nil;
@@ -69,7 +71,7 @@
         return nil;
 
     // Concatenate number with checksum to form EAN13
-    NSString *ean13 = [NSString stringWithFormat:@"%@%d",number12,checksumDigit];
+    NSString *ean13 = [NSString stringWithFormat:@"%@%ld",number12,(long)checksumDigit];
 
     NSError *error = nil;
     // BarCode
@@ -111,11 +113,11 @@
 
 - (NSString*)formatContribuinte:(NSInteger)number
 {
-    NSString* contribuinte = [NSString stringWithFormat:@"%d",number];
+    NSString* contribuinte = [NSString stringWithFormat:@"%ld",(long)number];
     NSString* formatted = @"";
 
     // Format number with spaces on each 3 chars
-    for (int i=contribuinte.length-1; i>=0; i--) {
+    for (int i=(long)contribuinte.length-1; i>=0; i--) {
         // Check limit
         if (i < 3) {
             formatted = [NSString stringWithFormat:@"%@%@",[contribuinte substringWithRange:NSMakeRange(0,i+1)],formatted];

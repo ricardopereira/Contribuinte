@@ -18,17 +18,17 @@
                     <rect key="frame" x="8" y="8" width="304" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999 999 999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="87A-ym-xed">
                     <rect key="frame" x="8" y="262" width="304" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uMM-Kz-du4">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uMM-Kz-du4">
                     <rect key="frame" x="87" y="313" width="146" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Código de Barras">
@@ -44,6 +44,7 @@
                 <outlet property="buttonBarCode" destination="uMM-Kz-du4" id="afd-dJ-tso"/>
                 <outlet property="imageCode" destination="wiF-ve-FSS" id="31y-nV-5LL"/>
                 <outlet property="labelContribuinte" destination="87A-ym-xed" id="iHA-jm-kte"/>
+                <outlet property="labelDescription" destination="32j-7N-JaD" id="4kc-jI-JbI"/>
             </connections>
             <point key="canvasLocation" x="276" y="333"/>
         </view>
