@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Features.h"
 #import "Contribuinte.h"
+#import "OwnerProtocol.h"
 
 @interface ViewContribuinte : UIView
 
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonAdd;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRemove;
 
+- (void)assignOwner:(id <OwnerProtocol>)owner;
 - (void)setupLayout:(Contribuinte*)number withRoot:(UIView*)view;
 
 @end

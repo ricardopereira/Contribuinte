@@ -7,15 +7,24 @@
 //
 
 #import "ViewContribuinte.h"
+#import "AddContribuinteController.h"
+#import "ContribuinteModel.h"
 
 #import <ctype.h>
 #import <ZXingObjC/ZXingObjC.h>
 
 @interface ViewContribuinte()
 
+@property (nonatomic) id <OwnerProtocol> owner;
+
 @end
 
 @implementation ViewContribuinte
+
+- (void)assignOwner:(id <OwnerProtocol>)owner
+{
+    self.owner = owner;
+}
 
 - (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
 {
@@ -134,11 +143,29 @@
 
 #pragma mark - IBActions
 
-- (IBAction)didTouchButtonAdd:(id)sender {
+- (IBAction)didTouchButtonAdd:(id)sender
+{
+    if (self.owner == nil)
+        return;
+    // Dialog
+    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" withAcceptHandler:^(AddContribuinteController *sender) {
+        // Accepted
+        if (sender == nil)
+            return;
 
+        UITextField *fieldDescription = [[sender textFields] firstObject];
+        UITextField *fieldNumber = [[sender textFields] lastObject];
+
+        ContribuinteModel *model = [[ContribuinteModel alloc] init];
+        [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];
+    }];
+
+    // Show
+    [self.owner presentViewController:addContribuinteController animated:true completion:nil];
 }
 
-- (IBAction)didTouchButtonRemove:(id)sender {
+- (IBAction)didTouchButtonRemove:(id)sender
+{
 
 }
 

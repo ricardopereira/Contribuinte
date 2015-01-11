@@ -18,6 +18,8 @@
 		D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */; };
 		D7F8D7B91A6081BE005A3BD7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7B71A6081BE005A3BD7 /* MainViewController.m */; };
 		D7F8D7BA1A6081BE005A3BD7 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */; };
+		D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */; };
+		D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,11 @@
 		D7F8D7B71A6081BE005A3BD7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		D7F8D7BB1A61B0E7005A3BD7 /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
+		D7F8D7BC1A61E79D005A3BD7 /* AddContribuinteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContribuinteController.h; sourceTree = "<group>"; };
+		D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContribuinteController.m; sourceTree = "<group>"; };
+		D7F8D7C21A61F6F7005A3BD7 /* ContribuinteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContribuinteModel.h; sourceTree = "<group>"; };
+		D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContribuinteModel.m; sourceTree = "<group>"; };
+		D7F8D7C51A61FC78005A3BD7 /* OwnerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnerProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,15 +114,20 @@
 			children = (
 				D75B0FD01A5F030800DC857C /* AppDelegate.h */,
 				D75B0FD11A5F030800DC857C /* AppDelegate.m */,
+				D7F8D7C51A61FC78005A3BD7 /* OwnerProtocol.h */,
 				D7F8D7B61A6081BE005A3BD7 /* MainViewController.h */,
 				D7F8D7B71A6081BE005A3BD7 /* MainViewController.m */,
 				D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */,
 				D7EECD651A5F223F00A405B0 /* ViewContribuinte.h */,
 				D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */,
 				D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */,
+				D7F8D7BC1A61E79D005A3BD7 /* AddContribuinteController.h */,
+				D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */,
+				D7F8D7BB1A61B0E7005A3BD7 /* Features.h */,
 				D7F8D7B31A606FE0005A3BD7 /* Contribuinte.h */,
 				D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */,
-				D7F8D7BB1A61B0E7005A3BD7 /* Features.h */,
+				D7F8D7C21A61F6F7005A3BD7 /* ContribuinteModel.h */,
+				D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */,
 				D75B0FD91A5F030800DC857C /* Images.xcassets */,
 				D75B0FDB1A5F030800DC857C /* LaunchScreen.xib */,
 				D75B0FCC1A5F030800DC857C /* Supporting Files */,
@@ -298,8 +310,10 @@
 				D7F8D7B91A6081BE005A3BD7 /* MainViewController.m in Sources */,
 				D75B0FD21A5F030800DC857C /* AppDelegate.m in Sources */,
 				D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */,
+				D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */,
 				D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */,
 				D75B0FCF1A5F030800DC857C /* main.m in Sources */,
+				D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

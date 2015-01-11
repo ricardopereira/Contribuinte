@@ -9,15 +9,19 @@
 #import "MainViewController.h"
 #import "ViewContribuinte.h"
 #import "SSStackedPageView.h"
+#import "AddContribuinteController.h"
+#import "OwnerProtocol.h"
 
 #import <Realm/Realm.h>
 
 #import "Contribuinte.h"
+#import "ContribuinteModel.h"
 
-@interface MainViewController () <SSStackedViewDelegate>
+@interface MainViewController () <SSStackedViewDelegate, OwnerProtocol>
 
 @property (nonatomic) NSMutableArray *views;
 @property (nonatomic) CGFloat lastBrightness;
+@property (nonatomic) RLMNotificationToken *notificationToken;
 
 @property (nonatomic) IBOutlet SSStackedPageView *stackView;
 @property (weak, nonatomic) IBOutlet UIButton *buttonAdd;
@@ -45,6 +49,16 @@
         [[NSFileManager defaultManager] removeItemAtPath:[RLMRealm defaultRealmPath] error:nil];
     }
 
+    if (FEATURE_REALM) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        // Observe Realm Notifications
+        self.notificationToken = [realm addNotificationBlock:^(NSString *note, RLMRealm *realm) {
+
+            // ToDo: Poderá acontecer que um esteja selecionado e surgir notificação!
+            [self loadContribuintes];
+        }];
+    }
+
     // Config
     [self loadContribuintes];
 }
@@ -53,16 +67,24 @@
 {
     [super viewDidAppear:animated];
 
-    if (FEATURE_ORIENTATION)
+    if (FEATURE_ORIENTATION) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
 
-    if (FEATURE_ORIENTATION)
+    if (FEATURE_ORIENTATION) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+
+    if (FEATURE_REALM && self.notificationToken != nil) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        // Remove notification
+        [realm removeNotification:self.notificationToken];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,6 +142,7 @@
         // Create view
         ViewContribuinte *thisView = [[[NSBundle mainBundle] loadNibNamed:@"ViewContribuinte" owner:self options:nil] objectAtIndex:0];
 
+        [thisView assignOwner:self];
         [thisView setupLayout:item withRoot:self.view];
 
         [self.views addObject:thisView];
@@ -139,6 +162,10 @@
     [UIView animateWithDuration:0.2 animations:^{
         page.labelContribuinte.transform = CGAffineTransformMakeRotation(2*M_PI);
         page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1, 1);
+
+        page.labelDescription.hidden = false;
+        page.buttonAdd.hidden = false;
+        page.buttonRemove.hidden = false;
     }];
 
     // Unset Brightness
@@ -166,12 +193,20 @@
         blockAnimation = ^{
             page.labelContribuinte.transform = CGAffineTransformMakeRotation(-M_PI / 2);
             page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
+
+            page.labelDescription.hidden = true;
+            page.buttonAdd.hidden = true;
+            page.buttonRemove.hidden = true;
         };
     }
     else {
         blockAnimation = ^{
             page.labelContribuinte.transform = CGAffineTransformMakeRotation(M_PI / 2);
             page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
+
+            page.labelDescription.hidden = true;
+            page.buttonAdd.hidden = true;
+            page.buttonRemove.hidden = true;
         };
     }
     [UIView animateWithDuration:0.3 animations:blockAnimation];
@@ -251,66 +286,23 @@
 
 #pragma mark - IBActions
 
-- (IBAction)didTouchButtonAdd:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" preferredStyle:UIAlertControllerStyleAlert];
+- (IBAction)didTouchButtonAdd:(id)sender
+{
+    // Dialog
+    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" withAcceptHandler:^(AddContribuinteController *sender) {
+        // Accepted
+        if (sender == nil)
+            return;
 
-    // Add action
-    UIAlertAction *actionAdd = [UIAlertAction actionWithTitle:@"Adicionar" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        // On action
-        UITextField *fieldDescription = [[alertController textFields] firstObject];
-        UITextField *fieldNumber = [[alertController textFields] lastObject];
+        UITextField *fieldDescription = [[sender textFields] firstObject];
+        UITextField *fieldNumber = [[sender textFields] lastObject];
 
-        Contribuinte *contribuinte = [[Contribuinte alloc] init];
-        contribuinte.description = fieldDescription.text;
-        contribuinte.number = fieldNumber.text.integerValue;
-
-        if (FEATURE_REALM) {
-            RLMRealm *realm = [RLMRealm defaultRealm];
-            // Save object
-            [realm beginWriteTransaction];
-            [realm addObject:contribuinte];
-            [realm commitWriteTransaction];
-        }
-        else {
-            // Add to array
-        }
-        [self loadContribuintes];
-    }];
-    actionAdd.enabled = false;
-
-    // Cancel action
-    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil];
-
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Descrição";
-
-        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            // Check if is empty
-            if ([textField.text isEqualToString:@""])
-                actionAdd.enabled = false;
-        }];
+        ContribuinteModel *model = [[ContribuinteModel alloc] init];
+        [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];
     }];
 
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Número";
-        textField.keyboardType = UIKeyboardTypeNumberPad;
-
-        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            // Check if is empty
-            actionAdd.enabled = ![textField.text isEqualToString:@""];
-            actionAdd.enabled = actionAdd.enabled && textField.text.length <= 9;
-            actionAdd.enabled = actionAdd.enabled && textField.text.integerValue > 0;
-        }];
-    }];
-
-    [alertController addAction:actionAdd];
-    [alertController addAction:actionCancel];
-
-    [self presentViewController:alertController animated:true completion:^{
-        // Finish
-
-
-    }];
+    // Show
+    [self presentViewController:addContribuinteController animated:true completion:nil];
 }
 
 @end
