@@ -22,6 +22,6 @@
 
 - (void)assignBuffer:(Contribuinte*)contribuinte;
 - (void)assignOwner:(id <OwnerProtocol>)owner;
-- (void)setupLayout:(Contribuinte*)number withRoot:(UIView*)view;
+- (void)setupLayout:(Contribuinte*)number;
 
 @end

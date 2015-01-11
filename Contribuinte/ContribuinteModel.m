@@ -33,7 +33,7 @@
     if (FEATURE_REALM) {
         RLMRealm *realm = [RLMRealm defaultRealm];
         // Query
-        RLMResults *result = [Contribuinte objectsWhere:[NSString stringWithFormat:@"number = %d", number]];
+        RLMResults *result = [Contribuinte objectsWhere:[NSString stringWithFormat:@"number = %ld", (long)number]];
         if (result.count == 0)
             return;
 

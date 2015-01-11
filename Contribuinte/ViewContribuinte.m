@@ -40,15 +40,20 @@
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
 }
 
-- (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
+- (void)setupLayout:(Contribuinte*)contribuinte
 {
     [self assignBuffer:contribuinte];
 
-    self.labelContribuinte.center = view.center;
+    self.labelContribuinte.center = CGPointMake(self.center.x, self.center.y-self.frame.origin.y);
+    self.buttonAdd.center = CGPointMake(self.center.x, self.frame.size.height-25);
+}
 
-    self.buttonAdd.center = CGPointMake(view.center.x, view.frame.size.height-25);
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
 
-    self.buttonBarCode.center = CGPointMake(view.center.x, view.frame.size.height-self.buttonBarCode.frame.size.height-10);
+    self.labelContribuinte.center = CGPointMake(self.center.x, self.center.y-self.frame.origin.y+30);
+    self.buttonAdd.center = CGPointMake(self.center.x, self.frame.size.height+10);
 }
 
 - (IBAction)didTouchButtonCode:(id)sender
@@ -179,6 +184,13 @@
 
         UITextField *fieldDescription = [[sender textFields] firstObject];
         UITextField *fieldNumber = [[sender textFields] lastObject];
+
+        // Trim
+        fieldDescription.text = [fieldDescription.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        // Get max characters
+        NSUInteger max = LENGTH_DESCRIPTION;
+        if (fieldDescription.text.length > max)
+            fieldDescription.text = [fieldDescription.text substringToIndex:max];
 
         ContribuinteModel *model = [[ContribuinteModel alloc] init];
         [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];

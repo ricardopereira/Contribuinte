@@ -111,12 +111,14 @@
         thisView.layer.cornerRadius = 5;
         thisView.layer.masksToBounds = true;
     }
-    else {
-        // Update reusable with new data
-        RLMResults *contribuintes = [Contribuinte allObjects];
-        if (contribuintes.count > 0)
-            [thisView assignBuffer:[contribuintes objectAtIndex:index]];
+
+    // Update reusable with new data
+    RLMResults *contribuintes = [Contribuinte allObjects];
+    if (contribuintes.count > 0) {
+        [thisView assignBuffer:[contribuintes objectAtIndex:index]];
+        [thisView setupLayout:[contribuintes objectAtIndex:index]];
     }
+    
     return thisView;
 }
 
@@ -138,7 +140,6 @@
 
     [self loadViewContribuintes:contribuintes];
     [self.stackView resetPages];
-    [self.stackView setNeedsDisplay];
     [self.stackView setNeedsLayout];
 }
 
@@ -149,7 +150,7 @@
         ViewContribuinte *thisView = [[[NSBundle mainBundle] loadNibNamed:@"ViewContribuinte" owner:self options:nil] objectAtIndex:0];
 
         [thisView assignOwner:self];
-        [thisView setupLayout:item withRoot:self.view];
+        [thisView setupLayout:item];
 
         [self.views addObject:thisView];
     }
@@ -180,7 +181,7 @@
 
 - (void)landscapeMode:(ViewContribuinte*)page
 {
-    [self landscapeMode:page rotateLeft:true];
+    [self landscapeMode:page rotateLeft:false];
 }
 
 - (void)landscapeMode:(ViewContribuinte*)page rotateLeft:(BOOL)left
