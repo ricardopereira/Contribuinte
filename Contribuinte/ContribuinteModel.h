@@ -14,5 +14,6 @@
 @interface ContribuinteModel : NSObject
 
 - (void)addContribuinte:(NSString*)description withNumber:(NSInteger)number;
+- (void)removeContribuinte:(NSInteger)number;
 
 @end

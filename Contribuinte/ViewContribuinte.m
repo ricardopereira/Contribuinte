@@ -16,6 +16,7 @@
 @interface ViewContribuinte()
 
 @property (nonatomic) id <OwnerProtocol> owner;
+@property (nonatomic) NSInteger number;
 
 @end
 
@@ -28,6 +29,7 @@
 
 - (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
 {
+    self.number = contribuinte.number;
     self.labelDescription.text = contribuinte.description;
 
     self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
@@ -166,7 +168,8 @@
 
 - (IBAction)didTouchButtonRemove:(id)sender
 {
-
+    ContribuinteModel *model = [[ContribuinteModel alloc] init];
+    [model removeContribuinte:self.number];
 }
 
 @end

@@ -28,4 +28,23 @@
     }
 }
 
+- (void)removeContribuinte:(NSInteger)number
+{
+    if (FEATURE_REALM) {
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        // Query
+        RLMResults *result = [Contribuinte objectsWhere:[NSString stringWithFormat:@"number = %d", number]];
+        if (result.count == 0)
+            return;
+
+        // Save object
+        [realm beginWriteTransaction];
+        [realm deleteObject:result.firstObject];
+        [realm commitWriteTransaction];
+    }
+    else {
+        // Add to array
+    }
+}
+
 @end
