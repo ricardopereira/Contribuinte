@@ -27,14 +27,23 @@
     self.owner = owner;
 }
 
-- (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
+- (void)assignBuffer:(Contribuinte*)contribuinte
 {
     self.number = contribuinte.number;
+
     self.labelDescription.text = contribuinte.description;
+    [self.labelDescription sizeToFit];
+    self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
 
     self.labelContribuinte.text = [self formatContribuinte:contribuinte.number];
     [self.labelContribuinte sizeToFit];
     self.labelContribuinte.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)setupLayout:(Contribuinte*)contribuinte withRoot:(UIView*)view
+{
+    [self assignBuffer:contribuinte];
+
     self.labelContribuinte.center = view.center;
 
     self.buttonAdd.center = CGPointMake(view.center.x, view.frame.size.height-25);
@@ -149,8 +158,21 @@
 {
     if (self.owner == nil)
         return;
+
+    RLMResults *contribuintes = [Contribuinte allObjects];
+    if (contribuintes.count == FEATURE_LIMIT) {
+
+        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Contribuinte" message:@"Atingiu o limite de cartões." preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+
+        // Show
+        [self.owner presentViewController:alertController animated:true completion:nil];
+        return;
+    }
+
     // Dialog
-    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" withAcceptHandler:^(AddContribuinteController *sender) {
+    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal:" withAcceptHandler:^(AddContribuinteController *sender) {
         // Accepted
         if (sender == nil)
             return;

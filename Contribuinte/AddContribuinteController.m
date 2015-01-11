@@ -7,6 +7,7 @@
 //
 
 #import "AddContribuinteController.h"
+#import "Contribuinte.h"
 
 @interface AddContribuinteController ()
 
@@ -45,7 +46,7 @@
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             // Check if is empty
             actionAdd.enabled = ![textField.text isEqualToString:@""];
-            actionAdd.enabled = actionAdd.enabled && textField.text.length <= 9;
+            actionAdd.enabled = actionAdd.enabled && textField.text.length <= LENGTH_NUMBER;
             actionAdd.enabled = actionAdd.enabled && textField.text.integerValue > 0;
         }];
     }];

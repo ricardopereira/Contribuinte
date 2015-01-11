@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
 
-#define LENGTH_DESCRIPTION = 20;
-#define LENGTH_NUMBER = 9;
+#define LENGTH_DESCRIPTION 20;
+#define LENGTH_NUMBER 9;
 
 @interface Contribuinte : RLMObject
 

@@ -37,7 +37,6 @@
     self.stackView.delegate = self;
     self.stackView.pagesHaveShadows = true;
 
-    self.views = [[NSMutableArray alloc] init];
     self.lastBrightness = -1;
 
     [self.buttonAdd setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
@@ -105,12 +104,18 @@
 
 - (UIView *)stackView:(SSStackedPageView *)stackView pageForIndex:(NSInteger)index
 {
-    UIView *thisView = [stackView dequeueReusablePage];
+    ViewContribuinte *thisView = (ViewContribuinte*)[stackView dequeueReusablePage];
     if (!thisView) {
         thisView = [self.views objectAtIndex:index];
 
         thisView.layer.cornerRadius = 5;
         thisView.layer.masksToBounds = true;
+    }
+    else {
+        // Update reusable with new data
+        RLMResults *contribuintes = [Contribuinte allObjects];
+        if (contribuintes.count > 0)
+            [thisView assignBuffer:[contribuintes objectAtIndex:index]];
     }
     return thisView;
 }
@@ -126,6 +131,7 @@
 - (void)loadContribuintes
 {
     RLMResults *contribuintes = [Contribuinte allObjects];
+    self.views = [[NSMutableArray alloc] init];
 
     self.buttonAdd.hidden = contribuintes.count != 0;
     self.stackView.hidden = contribuintes.count == 0;
@@ -296,6 +302,13 @@
 
         UITextField *fieldDescription = [[sender textFields] firstObject];
         UITextField *fieldNumber = [[sender textFields] lastObject];
+
+        // Trim
+        fieldDescription.text = [fieldDescription.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        // Get max characters
+        NSUInteger max = LENGTH_DESCRIPTION;
+        if (fieldDescription.text.length > max)
+            fieldDescription.text = [fieldDescription.text substringToIndex:max];
 
         ContribuinteModel *model = [[ContribuinteModel alloc] init];
         [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];

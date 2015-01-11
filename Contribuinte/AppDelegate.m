@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface AppDelegate ()
 
 @end
@@ -21,6 +23,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [[MainViewController alloc] init];
     [self.window makeKeyAndVisible];
+
+    [Crashlytics startWithAPIKey:@"d8e4a998430741c25fc8939d85d1dee852ab2fb9"];
+
     return YES;
 }
 

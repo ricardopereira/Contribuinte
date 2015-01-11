@@ -20,6 +20,7 @@
 		D7F8D7BA1A6081BE005A3BD7 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */; };
 		D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */; };
 		D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */; };
+		D7F8D7C81A6217D4005A3BD7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F8D7C71A6217D4005A3BD7 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		D7F8D7C21A61F6F7005A3BD7 /* ContribuinteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContribuinteModel.h; sourceTree = "<group>"; };
 		D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContribuinteModel.m; sourceTree = "<group>"; };
 		D7F8D7C51A61FC78005A3BD7 /* OwnerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnerProtocol.h; sourceTree = "<group>"; };
+		D7F8D7C71A6217D4005A3BD7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7F8D7C81A6217D4005A3BD7 /* Crashlytics.framework in Frameworks */,
 				0B45EFB6AB2C9166BCBD5683 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +87,7 @@
 		A5849E4EB4538371711F1F47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7F8D7C71A6217D4005A3BD7 /* Crashlytics.framework */,
 				7D4C9878340E692A4E54916A /* libPods.a */,
 			);
 			name = Frameworks;
@@ -182,6 +186,7 @@
 				D75B0FC61A5F030800DC857C /* Frameworks */,
 				D75B0FC71A5F030800DC857C /* Resources */,
 				8A05939648446D2C31EF2454 /* Copy Pods Resources */,
+				D7F8D7C61A621767005A3BD7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -299,6 +304,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D7F8D7C61A621767005A3BD7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run d8e4a998430741c25fc8939d85d1dee852ab2fb9 8308acaf8c93919e2529b47da88cb698cc27f681926b48b8b57f38e1e0c367dd";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -430,6 +448,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Contribuinte/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -445,6 +467,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Contribuinte/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
