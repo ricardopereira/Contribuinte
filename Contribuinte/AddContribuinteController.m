@@ -31,6 +31,8 @@
 
     [this addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Descrição";
+        textField.keyboardType = UIKeyboardTypeDefault;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
             // Check if is empty

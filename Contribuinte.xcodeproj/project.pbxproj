@@ -13,6 +13,7 @@
 		D75B0FDA1A5F030800DC857C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75B0FD91A5F030800DC857C /* Images.xcassets */; };
 		D75B0FDD1A5F030800DC857C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D75B0FDB1A5F030800DC857C /* LaunchScreen.xib */; };
 		D75B0FE91A5F030800DC857C /* ContribuinteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FE81A5F030800DC857C /* ContribuinteTests.m */; };
+		D7A2D9871AA705E3004F8D55 /* SlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A2D9861AA705E3004F8D55 /* SlideMenu.m */; };
 		D7EECD641A5F1FEC00A405B0 /* ViewContribuinte.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */; };
 		D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */; };
 		D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */; };
@@ -47,6 +48,8 @@
 		D75B0FE21A5F030800DC857C /* ContribuinteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContribuinteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D75B0FE71A5F030800DC857C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D75B0FE81A5F030800DC857C /* ContribuinteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContribuinteTests.m; sourceTree = "<group>"; };
+		D7A2D9851AA705E3004F8D55 /* SlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenu.h; sourceTree = "<group>"; };
+		D7A2D9861AA705E3004F8D55 /* SlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenu.m; sourceTree = "<group>"; };
 		D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewContribuinte.xib; sourceTree = "<group>"; };
 		D7EECD651A5F223F00A405B0 /* ViewContribuinte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewContribuinte.h; sourceTree = "<group>"; };
 		D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewContribuinte.m; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */,
 				D7F8D7BC1A61E79D005A3BD7 /* AddContribuinteController.h */,
 				D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */,
+				D7A2D9851AA705E3004F8D55 /* SlideMenu.h */,
+				D7A2D9861AA705E3004F8D55 /* SlideMenu.m */,
 				D7F8D7BB1A61B0E7005A3BD7 /* Features.h */,
 				D7F8D7B31A606FE0005A3BD7 /* Contribuinte.h */,
 				D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */,
@@ -329,6 +334,7 @@
 				D75B0FD21A5F030800DC857C /* AppDelegate.m in Sources */,
 				D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */,
 				D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */,
+				D7A2D9871AA705E3004F8D55 /* SlideMenu.m in Sources */,
 				D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */,
 				D75B0FCF1A5F030800DC857C /* main.m in Sources */,
 				D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */,

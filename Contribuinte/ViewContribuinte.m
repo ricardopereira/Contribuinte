@@ -187,6 +187,7 @@
 
         // Trim
         fieldDescription.text = [fieldDescription.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
         // Get max characters
         NSUInteger max = LENGTH_DESCRIPTION;
         if (fieldDescription.text.length > max)

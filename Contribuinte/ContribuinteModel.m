@@ -18,10 +18,17 @@
 
     if (FEATURE_REALM) {
         RLMRealm *realm = [RLMRealm defaultRealm];
-        // Save object
-        [realm beginWriteTransaction];
-        [realm addObject:contribuinte];
-        [realm commitWriteTransaction];
+        
+        // Check if exist
+        NSPredicate *query = [NSPredicate predicateWithFormat:@"number = %d", number];
+        RLMResults *res = [Contribuinte objectsWithPredicate:query];
+        
+        if (res.count <= 0) {
+            // Save object
+            [realm beginWriteTransaction];
+            [realm addObject:contribuinte];
+            [realm commitWriteTransaction];
+        }
     }
     else {
         // Add to array

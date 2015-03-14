@@ -8,9 +8,11 @@
 
 #import "MainViewController.h"
 #import "ViewContribuinte.h"
-#import "SSStackedPageView.h"
 #import "AddContribuinteController.h"
 #import "OwnerProtocol.h"
+
+#import "SSStackedPageView.h"
+#import "SlideMenu.h"
 
 #import <Realm/Realm.h>
 
@@ -23,6 +25,7 @@
 @property (nonatomic) CGFloat lastBrightness;
 @property (nonatomic) RLMNotificationToken *notificationToken;
 
+@property (nonatomic) SlideMenu *menu;
 @property (nonatomic) IBOutlet SSStackedPageView *stackView;
 @property (weak, nonatomic) IBOutlet UIButton *buttonAdd;
 
@@ -38,6 +41,8 @@
     self.stackView.pagesHaveShadows = true;
 
     self.lastBrightness = -1;
+    
+    [self buildMenu:self];
 
     [self.buttonAdd setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.stackView setBackgroundColor:[UIColor colorWithRed:0 green:0.42 blue:0.68 alpha:1]];
@@ -97,6 +102,68 @@
 - (BOOL)prefersStatusBarHidden
 {
     return !FEATURE_STATUSBAR;
+}
+
+- (void)buildMenu:(UIViewController*)vc
+{
+    if (!FEATURE_SLIDEMENU)
+        return;
+    
+    NSMutableArray* items = [[NSMutableArray alloc] init];
+    SlideMenuItem *currentItem;
+    
+    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Adicionar novo" withCompletionHandler:^(BOOL finished) {
+        
+        [self addContribuinte];
+        
+    }];
+    [items addObject:currentItem];
+    
+    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Opções" withCompletionHandler:^(BOOL finished) {
+        
+        //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
+        //[self setViewControllers:@[secondViewController] animated:NO];
+    }];
+    [items addObject:currentItem];
+    
+    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Sobre" withCompletionHandler:^(BOOL finished) {
+        
+        //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
+        //[self setViewControllers:@[secondViewController] animated:NO];
+    }];
+    [items addObject:currentItem];
+    
+    // Do any additional setup after loading the view, typically from a nib.
+    _menu = [[SlideMenu alloc] initWithItems:items andTextAlignment:SlideMenuTextAlignmentLeft forViewController:vc];
+}
+
+
+#pragma mark - Logic
+
+-(void)addContribuinte
+{
+    // Dialog
+    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" withAcceptHandler:^(AddContribuinteController *sender) {
+        // Accepted
+        if (sender == nil)
+            return;
+        
+        UITextField *fieldDescription = [[sender textFields] firstObject];
+        UITextField *fieldNumber = [[sender textFields] lastObject];
+        
+        // Trim
+        fieldDescription.text = [fieldDescription.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        // Get max characters
+        NSUInteger max = LENGTH_DESCRIPTION;
+        if (fieldDescription.text.length > max)
+            fieldDescription.text = [fieldDescription.text substringToIndex:max];
+        
+        ContribuinteModel *model = [[ContribuinteModel alloc] init];
+        [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];
+    }];
+    
+    // Show
+    [self presentViewController:addContribuinteController animated:true completion:nil];
 }
 
 
@@ -295,28 +362,7 @@
 
 - (IBAction)didTouchButtonAdd:(id)sender
 {
-    // Dialog
-    AddContribuinteController *addContribuinteController = [AddContribuinteController alertControllerWithTitle:@"Contribuinte" message:@"Indique o número de identificação fiscal" withAcceptHandler:^(AddContribuinteController *sender) {
-        // Accepted
-        if (sender == nil)
-            return;
-
-        UITextField *fieldDescription = [[sender textFields] firstObject];
-        UITextField *fieldNumber = [[sender textFields] lastObject];
-
-        // Trim
-        fieldDescription.text = [fieldDescription.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        // Get max characters
-        NSUInteger max = LENGTH_DESCRIPTION;
-        if (fieldDescription.text.length > max)
-            fieldDescription.text = [fieldDescription.text substringToIndex:max];
-
-        ContribuinteModel *model = [[ContribuinteModel alloc] init];
-        [model addContribuinte:fieldDescription.text withNumber:fieldNumber.text.integerValue];
-    }];
-
-    // Show
-    [self presentViewController:addContribuinteController animated:true completion:nil];
+    [self addContribuinte];
 }
 
 @end
