@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
@@ -24,7 +25,7 @@
     self.window.rootViewController = [[MainViewController alloc] init];
     [self.window makeKeyAndVisible];
 
-    [Crashlytics startWithAPIKey:@"d8e4a998430741c25fc8939d85d1dee852ab2fb9"];
+    [Fabric with:@[CrashlyticsKit]];
 
     return YES;
 }
