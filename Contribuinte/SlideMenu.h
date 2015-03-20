@@ -9,31 +9,30 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    
     SlideMenuShownState,
     SlideMenuClosedState,
     SlideMenuDisplayingState
-    
 } SlideMenuState;
 
 typedef enum {
-    
     SlideMenuTextAlignmentLeft,
     SlideMenuTextAlignmentRight,
     SlideMenuTextAlignmentCenter
-    
 } SlideMenuAlignment;
+
+
+@interface SlideMenuItemCell : UITableViewCell
+
+@end
+
 
 @interface SlideMenuItem : NSObject
 
-// The title of the menu item
-@property(nonatomic, strong)NSString *title;
-
-// Completion handler
-@property(nonatomic, strong)void (^completion)(BOOL);
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) void (^completion)(BOOL);
 
 // Initialization methods
--(SlideMenuItem *)initMenuItemWithTitle:(NSString *)title withCompletionHandler:(void (^)(BOOL))completion;
+- (SlideMenuItem *)initMenuItemWithTitle:(NSString *)title withCompletionHandler:(void (^)(BOOL))completion;
 
 @end
 
@@ -46,16 +45,16 @@ typedef enum {
 @property(nonatomic, strong) UIColor *highLightTextColor;
 @property(nonatomic) SlideMenuAlignment titleAlignment;
 
-//create Menu with white background
--(SlideMenu *)initWithItems:(NSArray *)menuItems andTextAlignment:(SlideMenuAlignment)titleAlignment forViewController:(UIViewController *)viewController;
+// Create Menu with white background
+- (SlideMenu *)initWithItems:(NSArray *)menuItems andTextAlignment:(SlideMenuAlignment)titleAlignment forViewController:(UIViewController *)viewController;
 
--(SlideMenu *)initWithItems:(NSArray *)menuItems
+- (SlideMenu *)initWithItems:(NSArray *)menuItems
                textColor:(UIColor *)textColor
      hightLightTextColor:(UIColor *)hightLightTextColor
          backgroundColor:(UIColor *)backGroundColor
        andTextAlignment:(SlideMenuAlignment)titleAlignment
        forViewController:(UIViewController *)viewController;
 
--(void)showMenu;
+- (void)showMenu;
 
 @end

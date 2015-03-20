@@ -45,7 +45,7 @@
     [self assignBuffer:contribuinte];
 
     self.labelContribuinte.center = CGPointMake(self.center.x, self.center.y-self.frame.origin.y);
-    self.buttonAdd.center = CGPointMake(self.center.x, self.frame.size.height-25);
+    self.buttonRemove.center = CGPointMake(self.frame.size.width - (self.buttonRemove.frame.size.width/2) - self.buttonExpand.frame.origin.x, self.buttonRemove.center.y);
 }
 
 - (void)layoutSubviews
@@ -53,21 +53,6 @@
     [super layoutSubviews];
 
     self.labelContribuinte.center = CGPointMake(self.center.x, self.center.y-self.frame.origin.y+30);
-    self.buttonAdd.center = CGPointMake(self.center.x, self.frame.size.height+10);
-}
-
-- (IBAction)didTouchButtonCode:(id)sender
-{
-    if (self.imageCode.hidden) {
-        self.imageCode.hidden = false;
-        self.labelContribuinte.hidden = true;
-        [self.buttonBarCode setTitle:@"Número" forState:UIControlStateNormal];
-    }
-    else {
-        self.imageCode.hidden = true;
-        self.labelContribuinte.hidden = false;
-        [self.buttonBarCode setTitle:@"Código de Barras" forState:UIControlStateNormal];
-    }
 }
 
 - (UIImage*)generateCodeBarEAN13:(NSInteger)number
@@ -205,6 +190,25 @@
 {
     ContribuinteModel *model = [[ContribuinteModel alloc] init];
     [model removeContribuinte:self.number];
+}
+
+- (IBAction)didTouchButtonExpand:(id)sender
+{
+    
+}
+
+- (IBAction)didTouchButtonCode:(id)sender
+{
+    if (self.imageCode.hidden) {
+        self.imageCode.hidden = false;
+        self.labelContribuinte.hidden = true;
+        [self.buttonBarCode setTitle:@"Número" forState:UIControlStateNormal];
+    }
+    else {
+        self.imageCode.hidden = true;
+        self.labelContribuinte.hidden = false;
+        [self.buttonBarCode setTitle:@"Código de Barras" forState:UIControlStateNormal];
+    }
 }
 
 @end

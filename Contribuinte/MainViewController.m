@@ -112,21 +112,21 @@
     NSMutableArray* items = [[NSMutableArray alloc] init];
     SlideMenuItem *currentItem;
     
-    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Adicionar novo" withCompletionHandler:^(BOOL finished) {
+    currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Adicionar novo" withCompletionHandler:^(BOOL finished) {
         
         [self addContribuinte];
         
     }];
     [items addObject:currentItem];
     
-    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Opções" withCompletionHandler:^(BOOL finished) {
+    currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Opções" withCompletionHandler:^(BOOL finished) {
         
         //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
         //[self setViewControllers:@[secondViewController] animated:NO];
     }];
     [items addObject:currentItem];
     
-    currentItem = [[SlideMenuItem alloc]initMenuItemWithTitle:@"Sobre" withCompletionHandler:^(BOOL finished) {
+    currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Sobre" withCompletionHandler:^(BOOL finished) {
         
         //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
         //[self setViewControllers:@[secondViewController] animated:NO];
@@ -238,7 +238,6 @@
         page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1, 1);
 
         page.labelDescription.hidden = false;
-        page.buttonAdd.hidden = false;
         page.buttonRemove.hidden = false;
     }];
 
@@ -269,7 +268,6 @@
             page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
 
             page.labelDescription.hidden = true;
-            page.buttonAdd.hidden = true;
             page.buttonRemove.hidden = true;
         };
     }
@@ -279,7 +277,6 @@
             page.labelContribuinte.transform = CGAffineTransformScale(page.labelContribuinte.transform, 1.6, 1.6);
 
             page.labelDescription.hidden = true;
-            page.buttonAdd.hidden = true;
             page.buttonRemove.hidden = true;
         };
     }

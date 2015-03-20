@@ -16,17 +16,18 @@
 #define VELOCITY_TRESHOLD 1000
 #define AUTOCLOSE_VELOCITY 1200
 
+
+#pragma mark SlideMenuItem
+
 @interface SlideMenuItem ()
 
-// MenuButton
-@property(strong, nonatomic)UIButton *menuButton;
+@property (strong, nonatomic) UIButton *menuButton;
 
 @end
 
 @implementation SlideMenuItem
 
-
--(SlideMenuItem *)initMenuItemWithTitle:(NSString *)title withCompletionHandler:(void (^)(BOOL))completion;
+- (SlideMenuItem *)initMenuItemWithTitle:(NSString *)title withCompletionHandler:(void (^)(BOOL))completion;
 {
     self.title = title;
     self.completion = completion;
@@ -35,19 +36,57 @@
 
 @end
 
+
+#pragma mark SlideMenuItemCell
+
+@interface SlideMenuItemCell()
+
+
+@end
+
+@implementation SlideMenuItemCell
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted) {
+        self.textLabel.textColor = [UIColor blackColor];
+    }
+    else {
+        self.textLabel.textColor = [UIColor grayColor];
+    }
+}
+
+-(void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    if (selected) {
+        self.textLabel.textColor = [UIColor blackColor];
+    }
+    else {
+        self.textLabel.textColor = [UIColor grayColor];
+    }
+}
+
+@end
+
+
+#pragma mark SlideMenu
+
 @interface SlideMenu ()
 
-@property(nonatomic, strong)NSArray *menuItems;
-@property(nonatomic, strong)UITableView *menuContentTable;
-@property(nonatomic, weak)UIViewController *contentController;
+@property (nonatomic, strong) NSArray *menuItems;
+@property (nonatomic, strong) UITableView *menuContentTable;
+@property (nonatomic, weak) UIViewController *contentController;
 
 @end
 
 @implementation SlideMenu
 
-NSString *const MENU_ITEM_DEFAULT_FONTNAME = @"HelveticaNeue-Light";
+NSString* const MENU_ITEM_DEFAULT_FONTNAME = @"HelveticaNeue-Light";
 NSInteger const MENU_ITEM_DEFAULT_FONTSIZE = 25;
 NSInteger const STARTINDEX = 1;
+NSInteger const EMPTYCELLS = 2;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -97,33 +136,28 @@ NSInteger const STARTINDEX = 1;
     return self;
 }
 
+
 #pragma mark setter
 
-
--(void)setBackgroundColor:(UIColor *)backgroundColor {
-    
-    if(self.backgroundColor != backgroundColor) {
-        
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    if (self.backgroundColor != backgroundColor) {
         [self.menuContentTable setBackgroundColor:backgroundColor];
-        
     }
-    
 }
 
--(void)setHeight:(CGFloat)height {
-    
-    if(_height != height) {
-        
+- (void)setHeight:(CGFloat)height
+{
+    if (_height != height) {
         CGRect menuFrame = self.frame;
         menuFrame.size.height = height;
         _menuContentTable.frame = menuFrame;
         _height = height;
     }
-
 }
 
-- (void)setContentController:(UIViewController *)contentController {
-    
+- (void)setContentController:(UIViewController *)contentController
+{
     if (_contentController != contentController) {
         
         if (contentController.navigationController)
@@ -133,16 +167,12 @@ NSInteger const STARTINDEX = 1;
         
         
         if (PANGESTURE_ENABLE) {
-            [_contentController.view addGestureRecognizer:[[UIPanGestureRecognizer alloc]
-                                                           initWithTarget:self action:@selector(didPan:)]];
+            [_contentController.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)]];
         }
         
         // Touch to dismiss
-        self.userInteractionEnabled = true;
-        [self addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                                       initWithTarget:self action:@selector(didTouch:)]];
-        
-        
+        //self.userInteractionEnabled = true;
+        //[self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouch:)]];
         
         [self setShadowProperties];
         
@@ -154,13 +184,11 @@ NSInteger const STARTINDEX = 1;
         [[[[UIApplication sharedApplication] delegate] window] setRootViewController:menuController];
         [[[[UIApplication sharedApplication] delegate] window] addSubview:_contentController.view];
     }
-
 }
 
--(void)setMenuContentTable:(UITableView *)menuContentTable
+- (void)setMenuContentTable:(UITableView *)menuContentTable
 {
     if (_menuContentTable != menuContentTable) {
-        
         [menuContentTable setDelegate:self];
         [menuContentTable setDataSource:self];
         [menuContentTable setShowsVerticalScrollIndicator:NO];
@@ -169,38 +197,35 @@ NSInteger const STARTINDEX = 1;
         [menuContentTable setAllowsMultipleSelection:NO];
         _menuContentTable = menuContentTable;
         [self addSubview:_menuContentTable];
-        
     }
 }
 
--(void)setShadowProperties
+- (void)setShadowProperties
 {
     [_contentController.view.layer setShadowOffset:CGSizeMake(0, 1)];
     [_contentController.view.layer setShadowRadius:4.0];
     [_contentController.view.layer setShadowColor:[UIColor lightGrayColor].CGColor];
     [_contentController.view.layer setShadowOpacity:0.4];
-    [_contentController.view.layer setShadowPath:[UIBezierPath
-                                                  bezierPathWithRect:_contentController.view.bounds].CGPath];
+    [_contentController.view.layer setShadowPath:[UIBezierPath bezierPathWithRect:_contentController.view.bounds].CGPath];
 }
 
 
 #pragma mark Layout method
 
--(void)layoutSubviews {
-    
+- (void)layoutSubviews
+{
     self.currentMenuState = SlideMenuClosedState;
     self.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), self.height);
     self.contentController.view.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
     [self setShadowProperties];
     self.menuContentTable = [[UITableView alloc] initWithFrame:self.frame];
-
 }
 
 
 #pragma mark Menu interactions
 
--(void)showMenu {
-    
+- (void)showMenu
+{
     if (self.currentMenuState == SlideMenuShownState || self.currentMenuState == SlideMenuDisplayingState) {
         if (self.currentMenuState == SlideMenuShownState || self.currentMenuState == SlideMenuDisplayingState) {
             [self animateMenuClosingWithCompletion:nil];
@@ -209,21 +234,18 @@ NSInteger const STARTINDEX = 1;
         self.currentMenuState = SlideMenuDisplayingState;
         [self animateMenuOpening];
     }
-    
 }
 
--(void)dismissMenu {
-    
-    if(self.currentMenuState == SlideMenuShownState || self.currentMenuState == SlideMenuDisplayingState){
-        
+- (void)dismissMenu
+{
+    if (self.currentMenuState == SlideMenuShownState || self.currentMenuState == SlideMenuDisplayingState) {
         [self closeMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY];
         self.currentMenuState = SlideMenuClosedState;
     }
-    
 }
 
--(void)didPan:(UIPanGestureRecognizer *)panRecognizer {
-    
+- (void)didPan:(UIPanGestureRecognizer *)panRecognizer
+{
     __block CGPoint viewCenter = panRecognizer.view.center;
     
     if (panRecognizer.state == UIGestureRecognizerStateBegan || panRecognizer.state == UIGestureRecognizerStateChanged) {
@@ -260,20 +282,19 @@ NSInteger const STARTINDEX = 1;
             [self openMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY];
         
     }
-
 }
 
--(void)didTouch:(UITapGestureRecognizer *)recognizer {
-    
+- (void)didTouch:(UITapGestureRecognizer *)recognizer
+{
     [self dismissMenu];
-    
 }
+
 
 #pragma mark animation and menu operations
 
--(void)animateMenuOpening{
-    
-    if(self.currentMenuState != SlideMenuShownState){
+- (void)animateMenuOpening
+{
+    if (self.currentMenuState != SlideMenuShownState){
         
         [UIView animateWithDuration:.2 animations:^{
             
@@ -297,16 +318,15 @@ NSInteger const STARTINDEX = 1;
     }
 }
 
--(void)animateMenuClosingWithCompletion:(void (^)(BOOL))completion{
-    
+- (void)animateMenuClosingWithCompletion:(void (^)(BOOL))completion
+{
     [UIView animateWithDuration:.2 animations:^{
         
         //pulling the contentController up
         _contentController.view.center = CGPointMake(_contentController.view.center.x + MENU_BOUNCE_OFFSET,
                                                      _contentController.view.center.y);
         
-        
-    }completion:^(BOOL finished) {
+    } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:.2 animations:^{
             
@@ -325,12 +345,10 @@ NSInteger const STARTINDEX = 1;
         }];
         
     }];
-    
-    
 }
 
--(void)closeMenuFromCenterWithVelocity:(CGFloat)velocity {
-    
+- (void)closeMenuFromCenterWithVelocity:(CGFloat)velocity
+{
     CGFloat viewCenterX = [[UIScreen mainScreen] bounds].size.width / 2;
     
     self.currentMenuState = SlideMenuDisplayingState;
@@ -344,11 +362,10 @@ NSInteger const STARTINDEX = 1;
         self.currentMenuState = SlideMenuClosedState;
         
     }];
-    
 }
 
--(void)openMenuFromCenterWithVelocity:(CGFloat)velocity {
-    
+- (void)openMenuFromCenterWithVelocity:(CGFloat)velocity
+{
     CGFloat viewCenterX = [[UIScreen mainScreen] bounds].size.width / 2 + MAX_PAN - MENU_BOUNCE_OFFSET;
     
     self.currentMenuState = SlideMenuDisplayingState;
@@ -361,25 +378,24 @@ NSInteger const STARTINDEX = 1;
         self.currentMenuState = SlideMenuShownState;
         
     }];
-    
 }
+
 
 #pragma mark UITableViewDelegates
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return [self.menuItems count] + 2 * STARTINDEX;
-    
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.menuItems count] + EMPTYCELLS * STARTINDEX;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UITableViewCell *menuCell = [tableView dequeueReusableCellWithIdentifier:CELLIDENTIFIER];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SlideMenuItemCell *menuCell = [tableView dequeueReusableCellWithIdentifier:CELLIDENTIFIER];
     SlideMenuItem *menuItem;
     
-    if(menuCell == nil)
+    if (menuCell == nil)
     {
-        menuCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLIDENTIFIER];
+        menuCell = [[SlideMenuItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLIDENTIFIER];
         [self setMenuTitleAlligmentForCell:menuCell];
         menuCell.backgroundColor = [UIColor clearColor];
         menuCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -388,24 +404,22 @@ NSInteger const STARTINDEX = 1;
         
     }
   
-    if(indexPath.row >= STARTINDEX && indexPath.row <= ([self.menuItems count] - 1 + STARTINDEX))
+    if (indexPath.row >= STARTINDEX && indexPath.row <= ([self.menuItems count] - 1 + STARTINDEX)) {
         menuItem = (SlideMenuItem *)[self.menuItems objectAtIndex:indexPath.row - STARTINDEX];
-            menuCell.textLabel.text =  menuItem.title;
-    
+    }
+    menuCell.textLabel.text =  menuItem.title;
     
     return menuCell;
-    
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     cell.textLabel.textColor = self.textColor;
     [cell.textLabel setFont:self.titleFont];
-    
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row < STARTINDEX || indexPath.row > [self.menuItems count] - 1 + STARTINDEX) {
         [self dismissMenu];
         return;
@@ -414,17 +428,15 @@ NSInteger const STARTINDEX = 1;
     [self.menuContentTable reloadData];
     SlideMenuItem *selectedItem = [self.menuItems objectAtIndex:indexPath.row - STARTINDEX];
     [self animateMenuClosingWithCompletion:selectedItem.completion];
-    
 }
+
 
 #pragma mark display modifications
 
--(void)setMenuTitleAlligmentForCell:(UITableViewCell *)cell{
-    
+- (void)setMenuTitleAlligmentForCell:(UITableViewCell *)cell
+{
     if (self.titleAlignment) {
-        
         switch (self.titleAlignment) {
-                
             case SlideMenuTextAlignmentLeft:
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
             case SlideMenuTextAlignmentCenter:
@@ -435,11 +447,8 @@ NSInteger const STARTINDEX = 1;
                 break;
             default:
                 break;
-                
         }
-        
     }
-    
 }
 
 @end
