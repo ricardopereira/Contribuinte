@@ -9,10 +9,12 @@
 #import "MainViewController.h"
 #import "ViewContribuinte.h"
 #import "AddContribuinteController.h"
+#import "OptionsViewController.h"
 #import "OwnerProtocol.h"
 
 #import "SSStackedPageView.h"
 #import "SlideMenu.h"
+#import "BlurView.h"
 
 #import <Realm/Realm.h>
 
@@ -115,14 +117,26 @@
     currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Adicionar novo" withCompletionHandler:^(BOOL finished) {
         
         [self addContribuinte];
-        
     }];
     [items addObject:currentItem];
     
+    __weak MainViewController *weakSelf = self;
     currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Opções" withCompletionHandler:^(BOOL finished) {
         
-        //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
-        //[self setViewControllers:@[secondViewController] animated:NO];
+        MainViewController *strongSelf = weakSelf;
+        if (strongSelf) {
+            OptionsViewController* vc = [[OptionsViewController alloc] initWithNibName:[[OptionsViewController class] description] bundle:nil];
+            
+            vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            
+            [BlurView insertBlurView:vc.view withStyle:UIBlurEffectStyleDark];
+            
+            [strongSelf presentViewController:vc animated:YES completion:nil];
+            
+            //Learn: Percolated one, using targetViewControllerForAction
+            //[strongSelf showViewController:vc sender:nil];
+        }
     }];
     [items addObject:currentItem];
     
@@ -173,7 +187,7 @@
 {
     ViewContribuinte *thisView = (ViewContribuinte*)[stackView dequeueReusablePage];
     if (!thisView) {
-        thisView = [self.views objectAtIndex:index];
+        thisView = self.views[index];
 
         thisView.layer.cornerRadius = 5;
         thisView.layer.masksToBounds = true;
@@ -182,8 +196,8 @@
     // Update reusable with new data
     RLMResults *contribuintes = [Contribuinte allObjects];
     if (contribuintes.count > 0) {
-        [thisView assignBuffer:[contribuintes objectAtIndex:index]];
-        [thisView setupLayout:[contribuintes objectAtIndex:index]];
+        [thisView assignBuffer:contribuintes[index]];
+        [thisView setupLayout:contribuintes[index]];
     }
     
     return thisView;

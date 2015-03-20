@@ -11,5 +11,6 @@
 @protocol OwnerProtocol <NSObject>
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion;
+- (void)showViewController:(UIViewController *)vc sender:(id)sender;
 
 @end

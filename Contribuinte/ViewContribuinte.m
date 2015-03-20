@@ -10,6 +10,9 @@
 #import "AddContribuinteController.h"
 #import "ContribuinteModel.h"
 
+#import "OptionsViewController.h"
+#import "BlurView.h"
+
 #import <ctype.h>
 #import <ZXingObjC/ZXingObjC.h>
 
@@ -194,7 +197,17 @@
 
 - (IBAction)didTouchButtonExpand:(id)sender
 {
+    if (self.owner == nil)
+        return;
     
+    OptionsViewController* vc = [[OptionsViewController alloc] initWithNibName:[[OptionsViewController class] description] bundle:nil];
+    
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [BlurView insertBlurView:vc.view withStyle:UIBlurEffectStyleDark];
+    
+    [self.owner showViewController:vc sender:nil];
 }
 
 - (IBAction)didTouchButtonCode:(id)sender

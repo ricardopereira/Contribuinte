@@ -9,12 +9,17 @@
 #import "SlideMenu.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define CELLIDENTIFIER @"menubutton"
-#define MENU_BOUNCE_OFFSET 10
-#define PANGESTURE_ENABLE 1
-#define MAX_PAN 260
-#define VELOCITY_TRESHOLD 1000
-#define AUTOCLOSE_VELOCITY 1200
+static NSString* const CELLIDENTIFIER = @"menubutton";
+static const NSInteger MENU_BOUNCE_OFFSET = 10;
+static const NSInteger PANGESTURE_ENABLE = 1;
+static const NSInteger MAX_PAN = 260;
+static const NSInteger VELOCITY_TRESHOLD = 1000;
+static const NSInteger AUTOCLOSE_VELOCITY = 1200;
+
+static NSString* const MENU_ITEM_DEFAULT_FONTNAME = @"HelveticaNeue-Light";
+static const NSInteger MENU_ITEM_DEFAULT_FONTSIZE = 25;
+static const NSInteger STARTINDEX = 1;
+static const NSInteger EMPTYCELLS = 2;
 
 
 #pragma mark SlideMenuItem
@@ -82,11 +87,6 @@
 @end
 
 @implementation SlideMenu
-
-NSString* const MENU_ITEM_DEFAULT_FONTNAME = @"HelveticaNeue-Light";
-NSInteger const MENU_ITEM_DEFAULT_FONTSIZE = 25;
-NSInteger const STARTINDEX = 1;
-NSInteger const EMPTYCELLS = 2;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -170,19 +170,17 @@ NSInteger const EMPTYCELLS = 2;
             [_contentController.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)]];
         }
         
-        // Touch to dismiss
-        //self.userInteractionEnabled = true;
-        //[self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouch:)]];
-        
         [self setShadowProperties];
         
         [_contentController.view setAutoresizingMask:UIViewAutoresizingNone];
         
         UIViewController *menuController = [[UIViewController alloc] init];
         menuController.view = self;
-        
         [[[[UIApplication sharedApplication] delegate] window] setRootViewController:menuController];
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:_contentController.view];
+        
+        UIView* currentView = _contentController.view;
+        //[menuController addSubview:currentView];
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:currentView];
     }
 }
 
@@ -282,11 +280,6 @@ NSInteger const EMPTYCELLS = 2;
             [self openMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY];
         
     }
-}
-
-- (void)didTouch:(UITapGestureRecognizer *)recognizer
-{
-    [self dismissMenu];
 }
 
 

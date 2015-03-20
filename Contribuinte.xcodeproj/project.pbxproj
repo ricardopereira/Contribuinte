@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		0B45EFB6AB2C9166BCBD5683 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4C9878340E692A4E54916A /* libPods.a */; };
 		D758BD991ABB897C0089AC23 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D758BD981ABB897C0089AC23 /* Fabric.framework */; };
+		D758BD9D1ABBAAB50089AC23 /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BD9B1ABBAAB50089AC23 /* OptionsViewController.m */; };
+		D758BD9E1ABBAAB50089AC23 /* OptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D758BD9C1ABBAAB50089AC23 /* OptionsViewController.xib */; };
+		D758BDA51ABC3E1D0089AC23 /* BlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDA41ABC3E1C0089AC23 /* BlurView.m */; };
+		D758BDA81ABC6CDF0089AC23 /* UIView+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDA71ABC6CDE0089AC23 /* UIView+Animations.m */; };
+		D758BDAB1ABC6FF20089AC23 /* OptionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDAA1ABC6FF20089AC23 /* OptionsTableViewDataSource.m */; };
+		D758BDAE1ABC70180089AC23 /* OptionsTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDAD1ABC70170089AC23 /* OptionsTableViewDelegate.m */; };
+		D758BDB01ABC767F0089AC23 /* OptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D758BDAF1ABC767F0089AC23 /* OptionCell.xib */; };
+		D758BDB31ABC7E190089AC23 /* Options.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDB21ABC7E190089AC23 /* Options.m */; };
 		D75B0FCF1A5F030800DC857C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FCE1A5F030800DC857C /* main.m */; };
 		D75B0FD21A5F030800DC857C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FD11A5F030800DC857C /* AppDelegate.m */; };
 		D75B0FDA1A5F030800DC857C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75B0FD91A5F030800DC857C /* Images.xcassets */; };
@@ -40,6 +48,20 @@
 		0D562A063DDF2CDB939957F4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7D4C9878340E692A4E54916A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D758BD981ABB897C0089AC23 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		D758BD9A1ABBAAB50089AC23 /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
+		D758BD9B1ABBAAB50089AC23 /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		D758BD9C1ABBAAB50089AC23 /* OptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsViewController.xib; sourceTree = "<group>"; };
+		D758BDA31ABC3E010089AC23 /* BlurView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlurView.h; sourceTree = "<group>"; };
+		D758BDA41ABC3E1C0089AC23 /* BlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurView.m; sourceTree = "<group>"; };
+		D758BDA61ABC6CDE0089AC23 /* UIView+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animations.h"; sourceTree = "<group>"; };
+		D758BDA71ABC6CDE0089AC23 /* UIView+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animations.m"; sourceTree = "<group>"; };
+		D758BDA91ABC6FF20089AC23 /* OptionsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsTableViewDataSource.h; sourceTree = "<group>"; };
+		D758BDAA1ABC6FF20089AC23 /* OptionsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsTableViewDataSource.m; sourceTree = "<group>"; };
+		D758BDAC1ABC70170089AC23 /* OptionsTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsTableViewDelegate.h; sourceTree = "<group>"; };
+		D758BDAD1ABC70170089AC23 /* OptionsTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsTableViewDelegate.m; sourceTree = "<group>"; };
+		D758BDAF1ABC767F0089AC23 /* OptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCell.xib; sourceTree = "<group>"; };
+		D758BDB11ABC7E190089AC23 /* Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
+		D758BDB21ABC7E190089AC23 /* Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Options.m; sourceTree = "<group>"; };
 		D75B0FC91A5F030800DC857C /* Contribuinte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contribuinte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D75B0FCD1A5F030800DC857C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D75B0FCE1A5F030800DC857C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,6 +122,58 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D758BD9F1ABBAACB0089AC23 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				D7F8D7B61A6081BE005A3BD7 /* MainViewController.h */,
+				D7F8D7B71A6081BE005A3BD7 /* MainViewController.m */,
+				D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */,
+				D7EECD651A5F223F00A405B0 /* ViewContribuinte.h */,
+				D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */,
+				D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */,
+				D758BD9A1ABBAAB50089AC23 /* OptionsViewController.h */,
+				D758BD9B1ABBAAB50089AC23 /* OptionsViewController.m */,
+				D758BDA91ABC6FF20089AC23 /* OptionsTableViewDataSource.h */,
+				D758BDAA1ABC6FF20089AC23 /* OptionsTableViewDataSource.m */,
+				D758BDAC1ABC70170089AC23 /* OptionsTableViewDelegate.h */,
+				D758BDAD1ABC70170089AC23 /* OptionsTableViewDelegate.m */,
+				D758BD9C1ABBAAB50089AC23 /* OptionsViewController.xib */,
+				D758BDAF1ABC767F0089AC23 /* OptionCell.xib */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		D758BDA01ABBAADD0089AC23 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D758BDA31ABC3E010089AC23 /* BlurView.h */,
+				D758BDA41ABC3E1C0089AC23 /* BlurView.m */,
+				D7A2D9851AA705E3004F8D55 /* SlideMenu.h */,
+				D7A2D9861AA705E3004F8D55 /* SlideMenu.m */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		D758BDA11ABBAB080089AC23 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				D758BDB11ABC7E190089AC23 /* Options.h */,
+				D758BDB21ABC7E190089AC23 /* Options.m */,
+				D7F8D7B31A606FE0005A3BD7 /* Contribuinte.h */,
+				D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */,
+			);
+			name = Logic;
+			sourceTree = "<group>";
+		};
+		D758BDA21ABBAB180089AC23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D7F8D7C21A61F6F7005A3BD7 /* ContribuinteModel.h */,
+				D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D75B0FC01A5F030800DC857C = {
 			isa = PBXGroup;
 			children = (
@@ -126,21 +200,15 @@
 				D75B0FD01A5F030800DC857C /* AppDelegate.h */,
 				D75B0FD11A5F030800DC857C /* AppDelegate.m */,
 				D7F8D7C51A61FC78005A3BD7 /* OwnerProtocol.h */,
-				D7F8D7B61A6081BE005A3BD7 /* MainViewController.h */,
-				D7F8D7B71A6081BE005A3BD7 /* MainViewController.m */,
-				D7F8D7B81A6081BE005A3BD7 /* MainViewController.xib */,
-				D7EECD651A5F223F00A405B0 /* ViewContribuinte.h */,
-				D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */,
-				D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */,
+				D758BDA61ABC6CDE0089AC23 /* UIView+Animations.h */,
+				D758BDA71ABC6CDE0089AC23 /* UIView+Animations.m */,
+				D758BD9F1ABBAACB0089AC23 /* Interface */,
 				D7F8D7BC1A61E79D005A3BD7 /* AddContribuinteController.h */,
 				D7F8D7BD1A61E79D005A3BD7 /* AddContribuinteController.m */,
-				D7A2D9851AA705E3004F8D55 /* SlideMenu.h */,
-				D7A2D9861AA705E3004F8D55 /* SlideMenu.m */,
+				D758BDA01ABBAADD0089AC23 /* Components */,
 				D7F8D7BB1A61B0E7005A3BD7 /* Features.h */,
-				D7F8D7B31A606FE0005A3BD7 /* Contribuinte.h */,
-				D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */,
-				D7F8D7C21A61F6F7005A3BD7 /* ContribuinteModel.h */,
-				D7F8D7C31A61F6F7005A3BD7 /* ContribuinteModel.m */,
+				D758BDA11ABBAB080089AC23 /* Logic */,
+				D758BDA21ABBAB180089AC23 /* Model */,
 				D75B0FD91A5F030800DC857C /* Images.xcassets */,
 				D75B0FDB1A5F030800DC857C /* LaunchScreen.xib */,
 				D75B0FCC1A5F030800DC857C /* Supporting Files */,
@@ -268,7 +336,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D75B0FDD1A5F030800DC857C /* LaunchScreen.xib in Resources */,
+				D758BD9E1ABBAAB50089AC23 /* OptionsViewController.xib in Resources */,
 				D7EECD641A5F1FEC00A405B0 /* ViewContribuinte.xib in Resources */,
+				D758BDB01ABC767F0089AC23 /* OptionCell.xib in Resources */,
 				D75B0FDA1A5F030800DC857C /* Images.xcassets in Resources */,
 				D7F8D7BA1A6081BE005A3BD7 /* MainViewController.xib in Resources */,
 			);
@@ -337,11 +407,17 @@
 				D7F8D7B91A6081BE005A3BD7 /* MainViewController.m in Sources */,
 				D75B0FD21A5F030800DC857C /* AppDelegate.m in Sources */,
 				D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */,
+				D758BDAE1ABC70180089AC23 /* OptionsTableViewDelegate.m in Sources */,
 				D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */,
 				D7A2D9871AA705E3004F8D55 /* SlideMenu.m in Sources */,
+				D758BDB31ABC7E190089AC23 /* Options.m in Sources */,
+				D758BDAB1ABC6FF20089AC23 /* OptionsTableViewDataSource.m in Sources */,
 				D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */,
 				D75B0FCF1A5F030800DC857C /* main.m in Sources */,
+				D758BDA51ABC3E1D0089AC23 /* BlurView.m in Sources */,
+				D758BDA81ABC6CDF0089AC23 /* UIView+Animations.m in Sources */,
 				D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */,
+				D758BD9D1ABBAAB50089AC23 /* OptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
