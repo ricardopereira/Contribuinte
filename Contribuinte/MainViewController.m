@@ -142,13 +142,11 @@
     
     currentItem = [[SlideMenuItem alloc] initMenuItemWithTitle:@"Sobre" withCompletionHandler:^(BOOL finished) {
         
-        //ULSecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"secondView"];
-        //[self setViewControllers:@[secondViewController] animated:NO];
     }];
     [items addObject:currentItem];
     
     // Do any additional setup after loading the view, typically from a nib.
-    _menu = [[SlideMenu alloc] initWithItems:items andTextAlignment:SlideMenuTextAlignmentLeft forViewController:vc];
+    self.menu = [[SlideMenu alloc] initWithItems:items andTextAlignment:SlideMenuTextAlignmentLeft forViewController:vc];
 }
 
 

@@ -17,6 +17,7 @@
 		D758BDAE1ABC70180089AC23 /* OptionsTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDAD1ABC70170089AC23 /* OptionsTableViewDelegate.m */; };
 		D758BDB01ABC767F0089AC23 /* OptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D758BDAF1ABC767F0089AC23 /* OptionCell.xib */; };
 		D758BDB31ABC7E190089AC23 /* Options.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDB21ABC7E190089AC23 /* Options.m */; };
+		D758BDB61ABD07A40089AC23 /* OptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D758BDB51ABD07A40089AC23 /* OptionCell.m */; };
 		D75B0FCF1A5F030800DC857C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FCE1A5F030800DC857C /* main.m */; };
 		D75B0FD21A5F030800DC857C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FD11A5F030800DC857C /* AppDelegate.m */; };
 		D75B0FDA1A5F030800DC857C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75B0FD91A5F030800DC857C /* Images.xcassets */; };
@@ -62,6 +63,8 @@
 		D758BDAF1ABC767F0089AC23 /* OptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCell.xib; sourceTree = "<group>"; };
 		D758BDB11ABC7E190089AC23 /* Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
 		D758BDB21ABC7E190089AC23 /* Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Options.m; sourceTree = "<group>"; };
+		D758BDB41ABD07A40089AC23 /* OptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionCell.h; sourceTree = "<group>"; };
+		D758BDB51ABD07A40089AC23 /* OptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionCell.m; sourceTree = "<group>"; };
 		D75B0FC91A5F030800DC857C /* Contribuinte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contribuinte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D75B0FCD1A5F030800DC857C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D75B0FCE1A5F030800DC857C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				D758BDAC1ABC70170089AC23 /* OptionsTableViewDelegate.h */,
 				D758BDAD1ABC70170089AC23 /* OptionsTableViewDelegate.m */,
 				D758BD9C1ABBAAB50089AC23 /* OptionsViewController.xib */,
+				D758BDB41ABD07A40089AC23 /* OptionCell.h */,
+				D758BDB51ABD07A40089AC23 /* OptionCell.m */,
 				D758BDAF1ABC767F0089AC23 /* OptionCell.xib */,
 			);
 			name = Interface;
@@ -411,6 +416,7 @@
 				D7F8D7C41A61F6F7005A3BD7 /* ContribuinteModel.m in Sources */,
 				D7A2D9871AA705E3004F8D55 /* SlideMenu.m in Sources */,
 				D758BDB31ABC7E190089AC23 /* Options.m in Sources */,
+				D758BDB61ABD07A40089AC23 /* OptionCell.m in Sources */,
 				D758BDAB1ABC6FF20089AC23 /* OptionsTableViewDataSource.m in Sources */,
 				D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */,
 				D75B0FCF1A5F030800DC857C /* main.m in Sources */,

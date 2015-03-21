@@ -8,6 +8,7 @@
 
 #import "OptionsTableViewDelegate.h"
 #import "Options.h"
+#import "OptionCell.h"
 
 @implementation OptionsTableViewDelegate
 
@@ -25,7 +26,13 @@
     
     if ([optionItem isKindOfClass:[OptionItemState class]]) {
         // Cell with enabled and disabled state
+        OptionCell *optionCell;
         
+        if ([cell isKindOfClass:[OptionCell class]]) {
+            optionCell = (OptionCell *)cell;
+            optionCell.option.on = ((OptionItemState *)optionItem).enabled;
+            optionCell.userDefaultName = @"brightnessAdjustment"; //((OptionItemState *)optionItem).userDefaultName;
+        }
     }
     else {
         

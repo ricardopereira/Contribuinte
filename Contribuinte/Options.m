@@ -40,12 +40,14 @@
 
 - (instancetype)init
 {
+    // Loading current options
+    NSInteger brightnessAdjustment = [[NSUserDefaults standardUserDefaults] integerForKey:@"brightnessAdjustment"];
+    
     if (self = [super init]) {
         self.items = @[
-                       [[OptionItemState alloc] init:@"Ajustar brilho automáticamente" withState:true],
-                       [[OptionItem alloc] init:@"Remover todos os contribuintes"]
+                       [[OptionItemState alloc] init:@"Ajustar brilho" withState:brightnessAdjustment],
+                       [[OptionItem alloc] init:@"Remover contribuintes"]
                        ];
-
     }
     return self;
 }

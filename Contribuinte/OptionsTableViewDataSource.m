@@ -50,6 +50,7 @@
             
             cell = [tableView dequeueReusableCellWithIdentifier:@"textCell"];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     
     return cell;

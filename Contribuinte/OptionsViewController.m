@@ -38,6 +38,12 @@
     // Table
     self.tableView.delegate = self.tableViewDelegate;
     self.tableView.dataSource = self.tableViewDataSource;
+    self.tableView.scrollEnabled = false;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return true;
 }
 
 - (IBAction)didTouchClose:(id)sender

@@ -304,6 +304,7 @@ static const NSInteger EMPTYCELLS = 2;
             }completion:^(BOOL finished){
                 
                 self.currentMenuState = SlideMenuShownState;
+                [self protectContent];
                 
             }];
             
@@ -331,6 +332,8 @@ static const NSInteger EMPTYCELLS = 2;
             
             if (finished) {
                 self.currentMenuState = SlideMenuClosedState;
+                [self unprotectContent];
+                
                 if (completion)
                     completion(finished);
             }
@@ -353,6 +356,7 @@ static const NSInteger EMPTYCELLS = 2;
     }completion:^(BOOL completed) {
         
         self.currentMenuState = SlideMenuClosedState;
+        [self unprotectContent];
         
     }];
 }
@@ -369,8 +373,30 @@ static const NSInteger EMPTYCELLS = 2;
     }completion:^(BOOL completed){
         
         self.currentMenuState = SlideMenuShownState;
+        [self protectContent];
         
     }];
+}
+
+- (void)protectContent
+{
+    UIView *closeHandlerView = [self.contentController.view viewWithTag:231564];
+    if (closeHandlerView)
+        return;
+    
+    closeHandlerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.contentController.view.frame.size.width, self.contentController.view.frame.size.height)];
+    closeHandlerView.backgroundColor = [UIColor clearColor];
+    closeHandlerView.tag = 231564;
+    [self.contentController.view addSubview:closeHandlerView];
+}
+
+- (void)unprotectContent
+{
+    UIView *closeHandlerView = [self.contentController.view viewWithTag:231564];
+    if (!closeHandlerView)
+        return;
+    
+    [closeHandlerView removeFromSuperview];
 }
 
 
