@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Options.h"
 
 @interface OptionCell : UITableViewCell
 
-@property (nonatomic, strong) NSString *userDefaultName;
-@property (weak, nonatomic) IBOutlet UISwitch *option;
+@property (weak, nonatomic) IBOutlet UISwitch *switchButton;
+
+- (void)configure:(OptionItem *)option;
 
 @end

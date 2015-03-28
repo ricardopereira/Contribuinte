@@ -8,11 +8,35 @@
 
 #import "OptionCell.h"
 
+@interface OptionCell()
+
+@property (nonatomic, weak) OptionItem *optionItem;
+
+@end
+
 @implementation OptionCell
 
 - (void)awakeFromNib
 {
     // Initialization code
+}
+
+- (void)configure:(OptionItem *)optionItem
+{
+    self.optionItem = optionItem;
+    
+    if ([optionItem isKindOfClass:[OptionItemState class]]) {
+        // Cell with enabled and disabled state
+        self.switchButton.on = ((OptionItemState *)optionItem).enabled;
+    }
+    else {
+        
+    }
+    
+    // Update
+    if (self.textLabel) {
+        self.textLabel.text = optionItem.title;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -24,9 +48,13 @@
 
 - (IBAction)didSwitchValueChanged:(id)sender
 {
+    if (!self.optionItem)
+        return;
     UISwitch *senderSwitch = (UISwitch *)sender;
+    // ToDo
+    // Persistent data
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:senderSwitch.on forKey:self.userDefaultName];
+    [defaults setInteger:senderSwitch.on forKey:self.optionItem.name];
     [defaults synchronize];
 }
 

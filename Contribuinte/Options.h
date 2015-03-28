@@ -10,9 +10,11 @@
 
 @interface OptionItem : NSObject
 
-@property (nonatomic, strong) NSString * description;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *title;
 
-- (instancetype)init:(NSString *)value;
+- (instancetype)init:(NSString *)key withTitle:(NSString *)title;
+- (void)load;
 
 @end
 
@@ -20,8 +22,6 @@
 @interface OptionItemState : OptionItem
 
 @property (nonatomic) BOOL enabled;
-
-- (instancetype)init:(NSString *)description withState:(BOOL)enabled;
 
 @end
 
@@ -31,5 +31,6 @@
 @property (nonatomic, strong) NSArray *items;
 
 - (instancetype)init;
+- (void)load;
 
 @end

@@ -12,12 +12,19 @@
 
 @synthesize description;
 
-- (instancetype)init:(NSString *)value
+- (instancetype)init:(NSString *)name withTitle:(NSString *)title
 {
     if (self = [super init]) {
-        self.description = value ;
+        self.name = name;
+        self.title = title;
+        [self load];
     }
     return self;
+}
+
+- (void)load
+{
+    
 }
 
 @end
@@ -25,12 +32,10 @@
 
 @implementation OptionItemState
 
-- (instancetype)init:(NSString *)description withState:(BOOL)enabled
+- (void)load
 {
-    if (self = [super init:description]) {
-        self.enabled = enabled;
-    }
-    return self;
+    // Persistent data
+    self.enabled = [[NSUserDefaults standardUserDefaults] integerForKey:self.name];
 }
 
 @end
@@ -40,13 +45,10 @@
 
 - (instancetype)init
 {
-    // Loading current options
-    NSInteger brightnessAdjustment = [[NSUserDefaults standardUserDefaults] integerForKey:@"brightnessAdjustment"];
-    
     if (self = [super init]) {
         self.items = @[
-                       [[OptionItemState alloc] init:@"Ajustar brilho" withState:brightnessAdjustment],
-                       [[OptionItem alloc] init:@"Remover contribuintes"]
+                       [[OptionItemState alloc] init:@"brightnessAdjustment" withTitle:@"Ajustar brilho"],
+                       [[OptionItem alloc] init:@"cleanDatabase" withTitle:@"Remover contribuintes"]
                        ];
     }
     return self;

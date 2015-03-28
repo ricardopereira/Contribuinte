@@ -8,6 +8,7 @@
 
 #import "OptionsTableViewDataSource.h"
 #import "Options.h"
+#import "OptionCell.h"
 
 @interface OptionsTableViewDataSource()
 
@@ -37,8 +38,9 @@
         // Cell with enabled and disabled state
         cell = [tableView dequeueReusableCellWithIdentifier:@"optionCell"];
         if (!cell) {
+            // NIB
             [tableView registerNib:[UINib nibWithNibName:@"OptionCell" bundle:nil] forCellReuseIdentifier:@"optionCell"];
-            
+            // Reuse
             cell = [tableView dequeueReusableCellWithIdentifier:@"optionCell"];
         }
     }
@@ -46,8 +48,9 @@
         // Classic cell
         cell = [tableView dequeueReusableCellWithIdentifier:@"textCell"];
         if (!cell) {
-            [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"textCell"];
-            
+            // Register class
+            [tableView registerClass:[OptionCell class] forCellReuseIdentifier:@"textCell"];
+            // Reuse
             cell = [tableView dequeueReusableCellWithIdentifier:@"textCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;

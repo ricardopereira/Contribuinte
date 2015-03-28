@@ -23,24 +23,9 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OptionItem *optionItem = self.options.items[indexPath.row];
-    
-    if ([optionItem isKindOfClass:[OptionItemState class]]) {
-        // Cell with enabled and disabled state
-        OptionCell *optionCell;
-        
-        if ([cell isKindOfClass:[OptionCell class]]) {
-            optionCell = (OptionCell *)cell;
-            optionCell.option.on = ((OptionItemState *)optionItem).enabled;
-            optionCell.userDefaultName = @"brightnessAdjustment"; //((OptionItemState *)optionItem).userDefaultName;
-        }
-    }
-    else {
-        
-    }
-    
-    // Update
-    if (cell.textLabel) {
-        cell.textLabel.text = optionItem.description;
+    if ([cell isKindOfClass:[OptionCell class]]) {
+        OptionCell *optionCell = (OptionCell *)cell;
+        [optionCell configure:optionItem];
     }
 }
 
