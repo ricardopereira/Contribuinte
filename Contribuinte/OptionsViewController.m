@@ -11,6 +11,8 @@
 #import "OptionsTableViewDataSource.h"
 #import "OptionsTableViewDelegate.h"
 
+#import "BlurView.h"
+
 @interface OptionsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -30,6 +32,9 @@
     self.options = [[Options alloc] init];
     self.tableViewDelegate = [[OptionsTableViewDelegate alloc] initWith:self.options];
     self.tableViewDataSource = [[OptionsTableViewDataSource alloc] initWith:self.options];
+
+    UIView *blurView = [BlurView insertBlurView:self.view withStyle:UIBlurEffectStyleDark];
+    [blurView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouchClose:)]];
 }
 
 - (void)viewDidLoad

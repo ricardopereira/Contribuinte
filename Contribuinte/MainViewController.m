@@ -14,7 +14,6 @@
 
 #import "SSStackedPageView.h"
 #import "SlideMenu.h"
-#import "BlurView.h"
 
 #import <Realm/Realm.h>
 
@@ -129,13 +128,7 @@
             
             vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            
-            [BlurView insertBlurView:vc.view withStyle:UIBlurEffectStyleDark];
-            
             [strongSelf presentViewController:vc animated:YES completion:nil];
-            
-            //Learn: Percolated one, using targetViewControllerForAction
-            //[strongSelf showViewController:vc sender:nil];
         }
     }];
     [items addObject:currentItem];

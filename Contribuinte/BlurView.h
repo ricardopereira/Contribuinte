@@ -10,6 +10,6 @@
 
 @interface BlurView : NSObject
 
-+ (void)insertBlurView:(UIView*)view withStyle:(UIBlurEffectStyle)style;
++ (UIView *)insertBlurView:(UIView*)view withStyle:(UIBlurEffectStyle)style;
 
 @end

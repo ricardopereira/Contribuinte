@@ -10,7 +10,7 @@
 
 @implementation BlurView
 
-+ (void)insertBlurView:(UIView*)view withStyle:(UIBlurEffectStyle)style
++ (UIView *)insertBlurView:(UIView*)view withStyle:(UIBlurEffectStyle)style
 {
     view.backgroundColor = [UIColor clearColor];
     
@@ -30,6 +30,7 @@
                              ];
     
     [view addConstraints:constraints];
+    return blurEffectView;
 }
 
 @end
