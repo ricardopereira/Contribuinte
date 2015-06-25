@@ -2,7 +2,7 @@ Contribuinte
 ============
 ###### TAX Number Manager
 
-![ScreenShot](https://www.dropbox.com/s/s90lqgb6weo45xs/iOS%20Simulator%20Screen%20Shot%2011%20Jan%202015%2005.30.55.png?raw=1 =320x480)
+<img src="https://www.dropbox.com/s/s90lqgb6weo45xs/iOS%20Simulator%20Screen%20Shot%2011%20Jan%202015%2005.30.55.png?raw=1" width="320" height="480">
 
 [![Download on the App Store](http://troposweather.com/assets/images/app-store-badge-5eb1a238.svg)](https://itunes.apple.com/us/app/contribuinte-garantia-do-nif/id957168333?mt=8)
 
