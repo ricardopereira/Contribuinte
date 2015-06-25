@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^BlockMethod)(void);
+
 typedef enum {
     SlideMenuShownState,
     SlideMenuClosedState,
@@ -38,12 +40,13 @@ typedef enum {
 
 @interface SlideMenu : UIView<UITableViewDataSource, UITableViewDelegate>
 
-@property(nonatomic) SlideMenuState currentMenuState;
-@property(nonatomic) CGFloat height;
-@property(nonatomic, strong) UIColor *textColor;
-@property(nonatomic, strong) UIFont *titleFont;
-@property(nonatomic, strong) UIColor *highLightTextColor;
-@property(nonatomic) SlideMenuAlignment titleAlignment;
+@property (nonatomic) SlideMenuState currentMenuState;
+@property (nonatomic) CGFloat height;
+@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIColor *highLightTextColor;
+@property (nonatomic) SlideMenuAlignment titleAlignment;
+@property (nonatomic, copy) BlockMethod onOpen;
 
 // Create Menu with white background
 - (SlideMenu *)initWithItems:(NSArray *)menuItems andTextAlignment:(SlideMenuAlignment)titleAlignment forViewController:(UIViewController *)viewController;

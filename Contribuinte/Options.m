@@ -54,4 +54,9 @@
     return self;
 }
 
+- (void)load
+{
+    
+}
+
 @end

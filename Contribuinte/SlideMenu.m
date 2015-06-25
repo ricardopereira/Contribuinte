@@ -21,7 +21,6 @@ static const NSInteger MENU_ITEM_DEFAULT_FONTSIZE = 25;
 static const NSInteger STARTINDEX = 1;
 static const NSInteger EMPTYCELLS = 2;
 
-
 #pragma mark SlideMenuItem
 
 @interface SlideMenuItem ()
@@ -270,15 +269,24 @@ static const NSInteger EMPTYCELLS = 2;
         
         CGPoint velocity = [panRecognizer velocityInView:panRecognizer.view.superview];
         
-        if (velocity.x > VELOCITY_TRESHOLD)
-            [self openMenuFromCenterWithVelocity:velocity.x];
-        else if (velocity.x < -VELOCITY_TRESHOLD)
-            [self closeMenuFromCenterWithVelocity:ABS(velocity.x)];
-        else if (viewCenter.x <  ([[UIScreen mainScreen] bounds].size.width / 2 + (MAX_PAN / 2)))
-            [self closeMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY];
-        else if (viewCenter.x <= ([[UIScreen mainScreen] bounds].size.width / 2 + MAX_PAN - MENU_BOUNCE_OFFSET))
-            [self openMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY];
-        
+        if (velocity.x > VELOCITY_TRESHOLD) {
+            [self openMenuFromCenterWithVelocity:velocity.x]; //open
+            
+            if (self.onOpen)
+                self.onOpen();
+        }
+        else if (velocity.x < -VELOCITY_TRESHOLD) {
+            [self closeMenuFromCenterWithVelocity:ABS(velocity.x)]; //close
+        }
+        else if (viewCenter.x <  ([[UIScreen mainScreen] bounds].size.width / 2 + (MAX_PAN / 2))) {
+            [self closeMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY]; //willClose
+        }
+        else if (viewCenter.x <= ([[UIScreen mainScreen] bounds].size.width / 2 + MAX_PAN - MENU_BOUNCE_OFFSET)) {
+            [self openMenuFromCenterWithVelocity:AUTOCLOSE_VELOCITY]; //willOpen
+            
+            if (self.onOpen)
+                self.onOpen();
+        }
     }
 }
 

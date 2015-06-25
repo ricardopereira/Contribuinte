@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+xcodebuild test -workspace Contribuinte.xcworkspace -scheme Contribuinte -sdk iphonesimulator BUILD_ACTIVE_ARCH=NO | xcpretty -t -c

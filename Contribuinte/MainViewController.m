@@ -140,6 +140,14 @@
     
     // Do any additional setup after loading the view, typically from a nib.
     self.menu = [[SlideMenu alloc] initWithItems:items andTextAlignment:SlideMenuTextAlignmentLeft forViewController:vc];
+    
+    __weak MainViewController *__weakSelf = self;
+    self.menu.onOpen = ^void(void) {
+        MainViewController *strongSelf = __weakSelf;
+        if (strongSelf) {
+            [strongSelf unsetFullBrightness];
+        }
+    };
 }
 
 
@@ -310,6 +318,7 @@
 
     if (FEATURE_BRIGHTNESS)
         [[UIScreen mainScreen] setBrightness:self.lastBrightness];
+    
     if (!keepLastBrightness)
         self.lastBrightness = -1;
 }

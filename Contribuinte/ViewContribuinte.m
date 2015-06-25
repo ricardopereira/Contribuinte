@@ -130,7 +130,7 @@
     NSString* formatted = @"";
 
     // Format number with spaces on each 3 chars
-    for (int i=(long)contribuinte.length-1; i>=0; i--) {
+    for (int i=(unsigned int)contribuinte.length-1; i>=0; i--) {
         // Check limit
         if (i < 3) {
             formatted = [NSString stringWithFormat:@"%@%@",[contribuinte substringWithRange:NSMakeRange(0,i+1)],formatted];

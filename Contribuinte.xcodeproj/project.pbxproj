@@ -24,6 +24,7 @@
 		D75B0FDD1A5F030800DC857C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D75B0FDB1A5F030800DC857C /* LaunchScreen.xib */; };
 		D75B0FE91A5F030800DC857C /* ContribuinteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B0FE81A5F030800DC857C /* ContribuinteTests.m */; };
 		D7A2D9871AA705E3004F8D55 /* SlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A2D9861AA705E3004F8D55 /* SlideMenu.m */; };
+		D7DEAC361B3C893F0099D4BE /* SSStackedPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DEAC351B3C893F0099D4BE /* SSStackedPageView.m */; };
 		D7EECD641A5F1FEC00A405B0 /* ViewContribuinte.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */; };
 		D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */; };
 		D7F8D7B51A606FE0005A3BD7 /* Contribuinte.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F8D7B41A606FE0005A3BD7 /* Contribuinte.m */; };
@@ -77,6 +78,8 @@
 		D75B0FE81A5F030800DC857C /* ContribuinteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContribuinteTests.m; sourceTree = "<group>"; };
 		D7A2D9851AA705E3004F8D55 /* SlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenu.h; sourceTree = "<group>"; };
 		D7A2D9861AA705E3004F8D55 /* SlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenu.m; sourceTree = "<group>"; };
+		D7DEAC341B3C893F0099D4BE /* SSStackedPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSStackedPageView.h; sourceTree = "<group>"; };
+		D7DEAC351B3C893F0099D4BE /* SSStackedPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSStackedPageView.m; sourceTree = "<group>"; };
 		D7EECD631A5F1FEC00A405B0 /* ViewContribuinte.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewContribuinte.xib; sourceTree = "<group>"; };
 		D7EECD651A5F223F00A405B0 /* ViewContribuinte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewContribuinte.h; sourceTree = "<group>"; };
 		D7EECD661A5F223F00A405B0 /* ViewContribuinte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewContribuinte.m; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				D758BDA41ABC3E1C0089AC23 /* BlurView.m */,
 				D7A2D9851AA705E3004F8D55 /* SlideMenu.h */,
 				D7A2D9861AA705E3004F8D55 /* SlideMenu.m */,
+				D7DEAC341B3C893F0099D4BE /* SSStackedPageView.h */,
+				D7DEAC351B3C893F0099D4BE /* SSStackedPageView.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 				D758BDAB1ABC6FF20089AC23 /* OptionsTableViewDataSource.m in Sources */,
 				D7EECD671A5F223F00A405B0 /* ViewContribuinte.m in Sources */,
 				D75B0FCF1A5F030800DC857C /* main.m in Sources */,
+				D7DEAC361B3C893F0099D4BE /* SSStackedPageView.m in Sources */,
 				D758BDA51ABC3E1D0089AC23 /* BlurView.m in Sources */,
 				D758BDA81ABC6CDF0089AC23 /* UIView+Animations.m in Sources */,
 				D7F8D7BE1A61E79D005A3BD7 /* AddContribuinteController.m in Sources */,
